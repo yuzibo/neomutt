@@ -20,6 +20,8 @@
 
 #include <stddef.h>
 
+struct EnterState;
+
 /* flags for mutt_FormatString() */
 typedef enum {
   MUTT_FORMAT_FORCESUBJ   = (1 << 0), /* print the subject even if unchanged */
@@ -35,6 +37,8 @@ typedef enum {
 typedef const char *format_t(char *, size_t, size_t, int, char, const char *,
                              const char *, const char *, const char *,
                              unsigned long, format_flag);
+
+typedef int enter_string_t(struct EnterState *state, const char *pattern);
 
 void mutt_FormatString(char *dest,         /* output buffer */
                        size_t destlen,     /* output buffer len */

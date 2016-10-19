@@ -78,6 +78,11 @@ mutt_window_t *MuttMessageWindow = NULL;
 mutt_window_t *MuttSidebarWindow = NULL;
 #endif
 
+/**
+ * mutt_refresh - XXX
+ *
+ * DESCRIPTION
+ */
 void mutt_refresh (void)
 {
   /* don't refresh when we are waiting for a child. */
@@ -92,6 +97,11 @@ void mutt_refresh (void)
   refresh ();
 }
 
+/**
+ * mutt_need_hard_redraw - XXX
+ *
+ * DESCRIPTION
+ */
 /* Make sure that the next refresh does a full refresh.  This could be
    optimized by not doing it at all if DISPLAY is set as this might
    indicate that a GUI based pinentry was used.  Having an option to
@@ -103,6 +113,13 @@ void mutt_need_hard_redraw (void)
   set_option (OPTNEEDREDRAW);
 }
 
+/**
+ * mutt_getch - XXX
+ *
+ * DESCRIPTION
+ *
+ * Returns: event_t
+ */
 event_t mutt_getch (void)
 {
   int ch;
@@ -159,6 +176,20 @@ event_t mutt_getch (void)
   return (ch == ctrl ('G') ? err : ret);
 }
 
+/**
+ * _mutt_get_field - XXX
+ * @field:    YYY
+ * @buf:      YYY
+ * @buflen:   YYY
+ * @complete: YYY
+ * @multiple: YYY
+ * @files:    YYY
+ * @numfiles: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int _mutt_get_field (const char *field, char *buf, size_t buflen, int complete, int multiple, char ***files, int *numfiles)
 {
   int ret;
@@ -183,6 +214,17 @@ int _mutt_get_field (const char *field, char *buf, size_t buflen, int complete, 
   return (ret);
 }
 
+/**
+ * mutt_get_field_unbuffered - XXX
+ * @msg:    YYY
+ * @buf:    YYY
+ * @buflen: YYY
+ * @flags:  YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int mutt_get_field_unbuffered (char *msg, char *buf, size_t buflen, int flags)
 {
   int rc;
@@ -194,6 +236,11 @@ int mutt_get_field_unbuffered (char *msg, char *buf, size_t buflen, int flags)
   return (rc);
 }
 
+/**
+ * mutt_clear_error - XXX
+ *
+ * DESCRIPTION
+ */
 void mutt_clear_error (void)
 {
   Errorbuf[0] = 0;
@@ -201,6 +248,13 @@ void mutt_clear_error (void)
     mutt_window_clearline (MuttMessageWindow, 0);
 }
 
+/**
+ * mutt_edit_file - XXX
+ * @editor: YYY
+ * @data:   YYY
+ *
+ * DESCRIPTION
+ */
 void mutt_edit_file (const char *editor, const char *data)
 {
   char cmd[LONG_STRING];
@@ -220,6 +274,15 @@ void mutt_edit_file (const char *editor, const char *data)
   clearok (stdscr, TRUE);
 }
 
+/**
+ * mutt_yesorno - XXX
+ * @msg: YYY
+ * @def: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int mutt_yesorno (const char *msg, int def)
 {
   event_t ch;
@@ -324,6 +387,11 @@ int mutt_yesorno (const char *msg, int def)
   return (def);
 }
 
+/**
+ * mutt_query_exit - XXX
+ *
+ * DESCRIPTION
+ */
 /* this function is called when the user presses the abort key */
 void mutt_query_exit (void)
 {
@@ -341,6 +409,14 @@ void mutt_query_exit (void)
   SigInt = 0;
 }
 
+/**
+ * curses_message - XXX
+ * @error: YYY
+ * @fmt:   YYY
+ * @ap:    YYY
+ *
+ * DESCRIPTION
+ */
 static void curses_message (int error, const char *fmt, va_list ap)
 {
   char scratch[LONG_STRING];
@@ -368,6 +444,13 @@ static void curses_message (int error, const char *fmt, va_list ap)
     unset_option (OPTMSGERR);
 }
 
+/**
+ * mutt_curses_error - XXX
+ * @fmt: YYY
+ * @...: YYY
+ *
+ * DESCRIPTION
+ */
 void mutt_curses_error (const char *fmt, ...)
 {
   va_list ap;
@@ -377,6 +460,13 @@ void mutt_curses_error (const char *fmt, ...)
   va_end (ap);
 }
 
+/**
+ * mutt_curses_message - XXX
+ * @fmt: YYY
+ * @...: YYY
+ *
+ * DESCRIPTION
+ */
 void mutt_curses_message (const char *fmt, ...)
 {
   va_list ap;
@@ -386,6 +476,16 @@ void mutt_curses_message (const char *fmt, ...)
   va_end (ap);
 }
 
+/**
+ * mutt_progress_init - XXX
+ * @progress: YYY
+ * @msg:      YYY
+ * @flags:    YYY
+ * @inc:      YYY
+ * @size:     YYY
+ *
+ * DESCRIPTION
+ */
 void mutt_progress_init (progress_t* progress, const char *msg,
 			 unsigned short flags, unsigned short inc,
 			 long size)
@@ -427,6 +527,14 @@ void mutt_progress_init (progress_t* progress, const char *msg,
   mutt_progress_update (progress, 0, 0);
 }
 
+/**
+ * message_bar - XXX
+ * @percent: YYY
+ * @fmt:     YYY
+ * @...:     YYY
+ *
+ * DESCRIPTION
+ */
 /**
  * message_bar - Draw a colourful progress bar
  * @percent: %age complete
@@ -488,6 +596,14 @@ message_bar (int percent, const char *fmt, ...)
   mutt_refresh();
 }
 
+/**
+ * mutt_progress_update - XXX
+ * @progress: YYY
+ * @pos:      YYY
+ * @percent:  YYY
+ *
+ * DESCRIPTION
+ */
 void mutt_progress_update (progress_t* progress, long pos, int percent)
 {
   char posstr[SHORT_STRING];
@@ -556,6 +672,11 @@ out:
     mutt_clear_error ();
 }
 
+/**
+ * mutt_init_windows - XXX
+ *
+ * DESCRIPTION
+ */
 void mutt_init_windows ()
 {
   MuttHelpWindow = safe_calloc (sizeof (mutt_window_t), 1);
@@ -567,6 +688,11 @@ void mutt_init_windows ()
 #endif
 }
 
+/**
+ * mutt_free_windows - XXX
+ *
+ * DESCRIPTION
+ */
 void mutt_free_windows ()
 {
   FREE (&MuttHelpWindow);
@@ -578,6 +704,11 @@ void mutt_free_windows ()
 #endif
 }
 
+/**
+ * mutt_reflow_windows - XXX
+ *
+ * DESCRIPTION
+ */
 void mutt_reflow_windows (void)
 {
   if (option (OPTNOCURSES))
@@ -621,16 +752,48 @@ void mutt_reflow_windows (void)
 #endif
 }
 
+/**
+ * mutt_window_move - XXX
+ * @win: YYY
+ * @row: YYY
+ * @col: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int mutt_window_move (mutt_window_t *win, int row, int col)
 {
   return move (win->row_offset + row, win->col_offset + col);
 }
 
+/**
+ * mutt_window_mvaddch - XXX
+ * @win: YYY
+ * @row: YYY
+ * @col: YYY
+ * @ch:  YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int mutt_window_mvaddch (mutt_window_t *win, int row, int col, const chtype ch)
 {
   return mvaddch (win->row_offset + row, win->col_offset + col, ch);
 }
 
+/**
+ * mutt_window_mvaddstr - XXX
+ * @win: YYY
+ * @row: YYY
+ * @col: YYY
+ * @str: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int mutt_window_mvaddstr (mutt_window_t *win, int row, int col, const char *str)
 {
   return mvaddstr (win->row_offset + row, win->col_offset + col, str);
@@ -647,6 +810,18 @@ static int vw_printw (SLcurses_Window_Type *win, const char *fmt, va_list ap)
 }
 #endif
 
+/**
+ * mutt_window_mvprintw - XXX
+ * @win: YYY
+ * @row: YYY
+ * @col: YYY
+ * @fmt: YYY
+ * @...: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int mutt_window_mvprintw (mutt_window_t *win, int row, int col, const char *fmt, ...)
 {
   va_list ap;
@@ -662,6 +837,12 @@ int mutt_window_mvprintw (mutt_window_t *win, int row, int col, const char *fmt,
   return rv;
 }
 
+/**
+ * mutt_window_clrtoeol - XXX
+ * @win: YYY
+ *
+ * DESCRIPTION
+ */
 /* Assumes the cursor has already been positioned within the
  * window.
  */
@@ -684,12 +865,27 @@ void mutt_window_clrtoeol (mutt_window_t *win)
   }
 }
 
+/**
+ * mutt_window_clearline - XXX
+ * @win: YYY
+ * @row: YYY
+ *
+ * DESCRIPTION
+ */
 void mutt_window_clearline (mutt_window_t *win, int row)
 {
   mutt_window_move (win, row, 0);
   mutt_window_clrtoeol (win);
 }
 
+/**
+ * mutt_window_getyx - XXX
+ * @win: YYY
+ * @y:   YYY
+ * @x:   YYY
+ *
+ * DESCRIPTION
+ */
 /* Assumes the current position is inside the window.
  * Otherwise it will happily return negative or values outside
  * the window boundaries
@@ -706,6 +902,11 @@ void mutt_window_getyx (mutt_window_t *win, int *y, int *x)
 }
 
 
+/**
+ * mutt_show_error - XXX
+ *
+ * DESCRIPTION
+ */
 void mutt_show_error (void)
 {
   if (option (OPTKEEPQUIET))
@@ -717,6 +918,12 @@ void mutt_show_error (void)
   mutt_window_clrtoeol(MuttMessageWindow);
 }
 
+/**
+ * mutt_endwin - XXX
+ * @msg: YYY
+ *
+ * DESCRIPTION
+ */
 void mutt_endwin (const char *msg)
 {
   int e = errno;
@@ -739,6 +946,12 @@ void mutt_endwin (const char *msg)
   errno = e;
 }
 
+/**
+ * mutt_perror - XXX
+ * @s: YYY
+ *
+ * DESCRIPTION
+ */
 void mutt_perror (const char *s)
 {
   char *p = strerror (errno);
@@ -748,6 +961,14 @@ void mutt_perror (const char *s)
   mutt_error ("%s: %s (errno = %d)", s, p ? p : _("unknown error"), errno);
 }
 
+/**
+ * mutt_any_key_to_continue - XXX
+ * @s: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int mutt_any_key_to_continue (const char *s)
 {
   struct termios t;
@@ -776,6 +997,17 @@ int mutt_any_key_to_continue (const char *s)
   return (ch);
 }
 
+/**
+ * mutt_do_pager - XXX
+ * @banner:   YYY
+ * @tempfile: YYY
+ * @do_color: YYY
+ * @info:     YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int mutt_do_pager (const char *banner,
 		   const char *tempfile,
 		   int do_color,
@@ -804,6 +1036,22 @@ int mutt_do_pager (const char *banner,
   return rc;
 }
 
+/**
+ * _mutt_enter_fname - XXX
+ * @prompt:   YYY
+ * @buf:      YYY
+ * @blen:     YYY
+ * @redraw:   YYY
+ * @buffy:    YYY
+ * @multiple: YYY
+ * @files:    YYY
+ * @numfiles: YYY
+ * @flags:    YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int _mutt_enter_fname (const char *prompt, char *buf, size_t blen,
 		int *redraw, int buffy, int multiple,
 		char ***files, int *numfiles, int flags)
@@ -855,6 +1103,13 @@ int _mutt_enter_fname (const char *prompt, char *buf, size_t blen,
   return 0;
 }
 
+/**
+ * mutt_unget_event - XXX
+ * @ch: YYY
+ * @op: YYY
+ *
+ * DESCRIPTION
+ */
 void mutt_unget_event (int ch, int op)
 {
   event_t tmp;
@@ -868,6 +1123,12 @@ void mutt_unget_event (int ch, int op)
   UngetKeyEvents[UngetCount++] = tmp;
 }
 
+/**
+ * mutt_unget_string - XXX
+ * @s: YYY
+ *
+ * DESCRIPTION
+ */
 void mutt_unget_string (char *s)
 {
   char *p = s + mutt_strlen (s) - 1;
@@ -878,6 +1139,13 @@ void mutt_unget_string (char *s)
   }
 }
 
+/**
+ * mutt_push_macro_event - XXX
+ * @ch: YYY
+ * @op: YYY
+ *
+ * DESCRIPTION
+ */
 /*
  * Adds the ch/op to the macro buffer.
  * This should be used for macros, push, and exec commands only.
@@ -895,6 +1163,11 @@ void mutt_push_macro_event (int ch, int op)
   MacroEvents[MacroBufferCount++] = tmp;
 }
 
+/**
+ * mutt_flush_macro_to_endcond - XXX
+ *
+ * DESCRIPTION
+ */
 void mutt_flush_macro_to_endcond (void)
 {
   UngetCount = 0;
@@ -905,6 +1178,11 @@ void mutt_flush_macro_to_endcond (void)
   }
 }
 
+/**
+ * mutt_flushinp - XXX
+ *
+ * DESCRIPTION
+ */
 void mutt_flushinp (void)
 {
   UngetCount = 0;
@@ -913,6 +1191,12 @@ void mutt_flushinp (void)
 }
 
 #if (defined(USE_SLANG_CURSES) || defined(HAVE_CURS_SET))
+/**
+ * mutt_curs_set - XXX
+ * @cursor: YYY
+ *
+ * DESCRIPTION
+ */
 /* The argument can take 3 values:
  * -1: restore the value of the last call
  *  0: make the cursor invisible
@@ -934,6 +1218,15 @@ void mutt_curs_set (int cursor)
 }
 #endif
 
+/**
+ * mutt_multi_choice - XXX
+ * @prompt:  YYY
+ * @letters: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int mutt_multi_choice (char *prompt, char *letters)
 {
   event_t ch;
@@ -980,6 +1273,14 @@ int mutt_multi_choice (char *prompt, char *letters)
  * addwch would be provided by an up-to-date curses library
  */
 
+/**
+ * mutt_addwch - XXX
+ * @wc: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int mutt_addwch (wchar_t wc)
 {
   char buf[MB_LEN_MAX*2];
@@ -1002,6 +1303,20 @@ int mutt_addwch (wchar_t wc)
  * when printed.
  */
 
+/**
+ * mutt_format_string - XXX
+ * @dest:       YYY
+ * @destlen:    YYY
+ * @min_width:  YYY
+ * @max_width:  YYY
+ * @justify:    YYY
+ * @m_pad_char: YYY
+ * @s:          YYY
+ * @n:          YYY
+ * @arboreal:   YYY
+ *
+ * DESCRIPTION
+ */
 void mutt_format_string (char *dest, size_t destlen,
 			 int min_width, int max_width,
 			 int justify, char m_pad_char,
@@ -1108,6 +1423,16 @@ void mutt_format_string (char *dest, size_t destlen,
  * the number of character cells when printed.
  */
 
+/**
+ * mutt_format_s_x - XXX
+ * @dest:     YYY
+ * @destlen:  YYY
+ * @prefix:   YYY
+ * @s:        YYY
+ * @arboreal: YYY
+ *
+ * DESCRIPTION
+ */
 static void mutt_format_s_x (char *dest,
 			     size_t destlen,
 			     const char *prefix,
@@ -1136,6 +1461,15 @@ static void mutt_format_s_x (char *dest,
 		      justify, ' ', s, mutt_strlen (s), arboreal);
 }
 
+/**
+ * mutt_format_s - XXX
+ * @dest:    YYY
+ * @destlen: YYY
+ * @prefix:  YYY
+ * @s:       YYY
+ *
+ * DESCRIPTION
+ */
 void mutt_format_s (char *dest,
 		    size_t destlen,
 		    const char *prefix,
@@ -1144,6 +1478,15 @@ void mutt_format_s (char *dest,
   mutt_format_s_x (dest, destlen, prefix, s, 0);
 }
 
+/**
+ * mutt_format_s_tree - XXX
+ * @dest:    YYY
+ * @destlen: YYY
+ * @prefix:  YYY
+ * @s:       YYY
+ *
+ * DESCRIPTION
+ */
 void mutt_format_s_tree (char *dest,
 			 size_t destlen,
 			 const char *prefix,
@@ -1157,6 +1500,13 @@ void mutt_format_s_tree (char *dest,
  * mutt_format_string (bigbuf, big, n, n, FMT_LEFT, ' ', s, big, 0), addstr (bigbuf)
  */
 
+/**
+ * mutt_paddstr - XXX
+ * @n: YYY
+ * @s: YYY
+ *
+ * DESCRIPTION
+ */
 void mutt_paddstr (int n, const char *s)
 {
   wchar_t wc;
@@ -1190,6 +1540,17 @@ void mutt_paddstr (int n, const char *s)
     addch (' ');
 }
 
+/**
+ * mutt_wstr_trunc - XXX
+ * @src:    YYY
+ * @maxlen: YYY
+ * @maxwid: YYY
+ * @width:  YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: size_t
+ */
 /* See how many bytes to copy from string so its at most maxlen bytes
  * long and maxwid columns wide */
 size_t mutt_wstr_trunc (const char *src, size_t maxlen, size_t maxwid, size_t *width)
@@ -1237,6 +1598,15 @@ out:
   return l;
 }
 
+/**
+ * mutt_charlen - XXX
+ * @s:     YYY
+ * @width: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /*
  * returns the number of bytes the first (multibyte) character
  * of input consumes:
@@ -1266,6 +1636,14 @@ int mutt_charlen (const char *s, int *width)
  * referring to the number of character cells.
  */
 
+/**
+ * mutt_strwidth - XXX
+ * @s: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int mutt_strwidth (const char *s)
 {
   wchar_t wc;

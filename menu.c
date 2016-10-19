@@ -30,6 +30,15 @@
 
 char* SearchBuffers[MENU_MAX];
 
+/**
+ * get_color - XXX
+ * @index: YYY
+ * @s:     YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int
 get_color (int index, unsigned char *s)
 {
@@ -71,6 +80,15 @@ get_color (int index, unsigned char *s)
   return 0;
 }
 
+/**
+ * print_enriched_string - XXX
+ * @index:    YYY
+ * @attr:     YYY
+ * @s:        YYY
+ * @do_color: YYY
+ *
+ * DESCRIPTION
+ */
 static void print_enriched_string (int index, int attr, unsigned char *s, int do_color)
 {
   wchar_t wc;
@@ -237,6 +255,15 @@ static void print_enriched_string (int index, int attr, unsigned char *s, int do
   }
 }
 
+/**
+ * menu_make_entry - XXX
+ * @s:    YYY
+ * @l:    YYY
+ * @menu: YYY
+ * @i:    YYY
+ *
+ * DESCRIPTION
+ */
 static void menu_make_entry (char *s, int l, MUTTMENU *menu, int i) 
 {
   if (menu->dialog) 
@@ -248,6 +275,14 @@ static void menu_make_entry (char *s, int l, MUTTMENU *menu, int i)
     menu->make_entry (s, l, menu, i);
 }
 
+/**
+ * menu_pad_string - XXX
+ * @menu: YYY
+ * @s:    YYY
+ * @n:    YYY
+ *
+ * DESCRIPTION
+ */
 static void menu_pad_string (MUTTMENU *menu, char *s, size_t n)
 {
   char *scratch = safe_strdup (s);
@@ -259,6 +294,12 @@ static void menu_pad_string (MUTTMENU *menu, char *s, size_t n)
   FREE (&scratch);
 }
 
+/**
+ * menu_redraw_full - XXX
+ * @menu: YYY
+ *
+ * DESCRIPTION
+ */
 void menu_redraw_full (MUTTMENU *menu)
 {
 #if ! (defined (USE_SLANG_CURSES) || defined (HAVE_RESIZETERM))
@@ -287,6 +328,12 @@ void menu_redraw_full (MUTTMENU *menu)
 #endif
 }
 
+/**
+ * menu_redraw_status - XXX
+ * @menu: YYY
+ *
+ * DESCRIPTION
+ */
 void menu_redraw_status (MUTTMENU *menu)
 {
   char buf[STRING];
@@ -299,6 +346,12 @@ void menu_redraw_status (MUTTMENU *menu)
   menu->redraw &= ~REDRAW_STATUS;
 }
 
+/**
+ * menu_redraw_sidebar - XXX
+ * @menu: YYY
+ *
+ * DESCRIPTION
+ */
 #ifdef USE_SIDEBAR
 void menu_redraw_sidebar (MUTTMENU *menu)
 {
@@ -307,6 +360,12 @@ void menu_redraw_sidebar (MUTTMENU *menu)
 }
 #endif
 
+/**
+ * menu_redraw_index - XXX
+ * @menu: YYY
+ *
+ * DESCRIPTION
+ */
 void menu_redraw_index (MUTTMENU *menu)
 {
   char buf[LONG_STRING];
@@ -354,6 +413,12 @@ void menu_redraw_index (MUTTMENU *menu)
   menu->redraw = 0;
 }
 
+/**
+ * menu_redraw_motion - XXX
+ * @menu: YYY
+ *
+ * DESCRIPTION
+ */
 void menu_redraw_motion (MUTTMENU *menu)
 {
   char buf[LONG_STRING];
@@ -402,6 +467,12 @@ void menu_redraw_motion (MUTTMENU *menu)
   NORMAL_COLOR;
 }
 
+/**
+ * menu_redraw_current - XXX
+ * @menu: YYY
+ *
+ * DESCRIPTION
+ */
 void menu_redraw_current (MUTTMENU *menu)
 {
   char buf[LONG_STRING];
@@ -426,6 +497,12 @@ void menu_redraw_current (MUTTMENU *menu)
   NORMAL_COLOR;
 }
 
+/**
+ * menu_redraw_prompt - XXX
+ * @menu: YYY
+ *
+ * DESCRIPTION
+ */
 static void menu_redraw_prompt (MUTTMENU *menu)
 {
   if (menu->dialog) 
@@ -444,6 +521,12 @@ static void menu_redraw_prompt (MUTTMENU *menu)
   }
 }
 
+/**
+ * menu_check_recenter - XXX
+ * @menu: YYY
+ *
+ * DESCRIPTION
+ */
 void menu_check_recenter (MUTTMENU *menu)
 {
   int c = MIN (MenuContext, menu->pagelen / 2);
@@ -483,6 +566,12 @@ void menu_check_recenter (MUTTMENU *menu)
     menu->redraw |= REDRAW_INDEX;
 }
 
+/**
+ * menu_jump - XXX
+ * @menu: YYY
+ *
+ * DESCRIPTION
+ */
 void menu_jump (MUTTMENU *menu)
 {
   int n;
@@ -508,6 +597,12 @@ void menu_jump (MUTTMENU *menu)
     mutt_error _("No entries.");
 }
 
+/**
+ * menu_next_line - XXX
+ * @menu: YYY
+ *
+ * DESCRIPTION
+ */
 void menu_next_line (MUTTMENU *menu)
 {
   if (menu->max)
@@ -529,6 +624,12 @@ void menu_next_line (MUTTMENU *menu)
     mutt_error _("No entries.");
 }
 
+/**
+ * menu_prev_line - XXX
+ * @menu: YYY
+ *
+ * DESCRIPTION
+ */
 void menu_prev_line (MUTTMENU *menu)
 {
   if (menu->top > 0)
@@ -544,6 +645,13 @@ void menu_prev_line (MUTTMENU *menu)
     mutt_error _("You cannot scroll up farther.");
 }
 
+/**
+ * menu_length_jump - XXX
+ * @menu:    YYY
+ * @jumplen: YYY
+ *
+ * DESCRIPTION
+ */
 /* 
  * pageup:   jumplen == -pagelen
  * pagedown: jumplen == pagelen
@@ -595,26 +703,56 @@ static void menu_length_jump (MUTTMENU *menu, int jumplen)
 }
 #undef DIRECTION
 
+/**
+ * menu_next_page - XXX
+ * @menu: YYY
+ *
+ * DESCRIPTION
+ */
 void menu_next_page (MUTTMENU *menu)
 {
   menu_length_jump (menu, MAX (menu->pagelen /* - MenuOverlap */, 0));
 }
 
+/**
+ * menu_prev_page - XXX
+ * @menu: YYY
+ *
+ * DESCRIPTION
+ */
 void menu_prev_page (MUTTMENU *menu)
 {
   menu_length_jump (menu, 0 - MAX (menu->pagelen /* - MenuOverlap */, 0));
 }
 
+/**
+ * menu_half_down - XXX
+ * @menu: YYY
+ *
+ * DESCRIPTION
+ */
 void menu_half_down (MUTTMENU *menu)
 {
   menu_length_jump (menu, menu->pagelen / 2);
 }
 
+/**
+ * menu_half_up - XXX
+ * @menu: YYY
+ *
+ * DESCRIPTION
+ */
 void menu_half_up (MUTTMENU *menu)
 {
   menu_length_jump (menu, 0 - menu->pagelen / 2);
 }
 
+/**
+ * menu_top_page - XXX
+ * @menu: YYY
+ *
+ * DESCRIPTION
+ */
 void menu_top_page (MUTTMENU *menu)
 {
   if (menu->current != menu->top)
@@ -624,6 +762,12 @@ void menu_top_page (MUTTMENU *menu)
   }
 }
 
+/**
+ * menu_bottom_page - XXX
+ * @menu: YYY
+ *
+ * DESCRIPTION
+ */
 void menu_bottom_page (MUTTMENU *menu)
 {
   if (menu->max)
@@ -637,6 +781,12 @@ void menu_bottom_page (MUTTMENU *menu)
     mutt_error _("No entries.");
 }
 
+/**
+ * menu_middle_page - XXX
+ * @menu: YYY
+ *
+ * DESCRIPTION
+ */
 void menu_middle_page (MUTTMENU *menu)
 {
   int i;
@@ -653,6 +803,12 @@ void menu_middle_page (MUTTMENU *menu)
     mutt_error _("No entries.");
 }
 
+/**
+ * menu_first_entry - XXX
+ * @menu: YYY
+ *
+ * DESCRIPTION
+ */
 void menu_first_entry (MUTTMENU *menu)
 {
   if (menu->max)
@@ -664,6 +820,12 @@ void menu_first_entry (MUTTMENU *menu)
     mutt_error _("No entries.");
 }
 
+/**
+ * menu_last_entry - XXX
+ * @menu: YYY
+ *
+ * DESCRIPTION
+ */
 void menu_last_entry (MUTTMENU *menu)
 {
   if (menu->max)
@@ -675,6 +837,12 @@ void menu_last_entry (MUTTMENU *menu)
     mutt_error _("No entries.");
 }
 
+/**
+ * menu_current_top - XXX
+ * @menu: YYY
+ *
+ * DESCRIPTION
+ */
 void menu_current_top (MUTTMENU *menu)
 {
   if (menu->max)
@@ -686,6 +854,12 @@ void menu_current_top (MUTTMENU *menu)
     mutt_error _("No entries.");
 }
 
+/**
+ * menu_current_middle - XXX
+ * @menu: YYY
+ *
+ * DESCRIPTION
+ */
 void menu_current_middle (MUTTMENU *menu)
 {
   if (menu->max)
@@ -699,6 +873,12 @@ void menu_current_middle (MUTTMENU *menu)
     mutt_error _("No entries.");
 }
 
+/**
+ * menu_current_bottom - XXX
+ * @menu: YYY
+ *
+ * DESCRIPTION
+ */
 void menu_current_bottom (MUTTMENU *menu)
 {
   if (menu->max)
@@ -712,6 +892,12 @@ void menu_current_bottom (MUTTMENU *menu)
     mutt_error _("No entries.");
 }
 
+/**
+ * menu_next_entry - XXX
+ * @menu: YYY
+ *
+ * DESCRIPTION
+ */
 static void menu_next_entry (MUTTMENU *menu)
 {
   if (menu->current < menu->max - 1)
@@ -723,6 +909,12 @@ static void menu_next_entry (MUTTMENU *menu)
     mutt_error _("You are on the last entry.");
 }
 
+/**
+ * menu_prev_entry - XXX
+ * @menu: YYY
+ *
+ * DESCRIPTION
+ */
 static void menu_prev_entry (MUTTMENU *menu)
 {
   if (menu->current)
@@ -734,11 +926,29 @@ static void menu_prev_entry (MUTTMENU *menu)
     mutt_error _("You are on the first entry.");
 }
 
+/**
+ * default_color - XXX
+ * @i: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int default_color (int i)
 {
    return ColorDefs[MT_COLOR_NORMAL];
 }
 
+/**
+ * menu_search_generic - XXX
+ * @m:  YYY
+ * @re: YYY
+ * @n:  YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int menu_search_generic (MUTTMENU *m, regex_t *re, int n)
 {
   char buf[LONG_STRING];
@@ -747,6 +957,11 @@ static int menu_search_generic (MUTTMENU *m, regex_t *re, int n)
   return (regexec (re, buf, 0, NULL, 0));
 }
 
+/**
+ * mutt_menu_init - XXX
+ *
+ * DESCRIPTION
+ */
 void mutt_menu_init (void)
 {
   int i;
@@ -755,6 +970,14 @@ void mutt_menu_init (void)
     SearchBuffers[i] = NULL;
 }
 
+/**
+ * mutt_new_menu - XXX
+ * @menu: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: MUTTMENU*
+ */
 MUTTMENU *mutt_new_menu (int menu)
 {
   MUTTMENU *p = (MUTTMENU *) safe_calloc (1, sizeof (MUTTMENU));
@@ -777,6 +1000,12 @@ MUTTMENU *mutt_new_menu (int menu)
   return (p);
 }
 
+/**
+ * mutt_menuDestroy - XXX
+ * @p: YYY
+ *
+ * DESCRIPTION
+ */
 void mutt_menuDestroy (MUTTMENU **p)
 {
   int i;
@@ -795,6 +1024,15 @@ void mutt_menuDestroy (MUTTMENU **p)
 #define MUTT_SEARCH_UP   1
 #define MUTT_SEARCH_DOWN 2
 
+/**
+ * menu_search - XXX
+ * @menu: YYY
+ * @op:   YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int menu_search (MUTTMENU *menu, int op)
 {
   int r, wrap = 0;
@@ -857,6 +1095,14 @@ search_next:
   return (-1);
 }
 
+/**
+ * menu_dialog_translate_op - XXX
+ * @i: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int menu_dialog_translate_op (int i)
 {
   switch (i)
@@ -876,6 +1122,15 @@ static int menu_dialog_translate_op (int i)
   return i;
 }
 
+/**
+ * menu_dialog_dokey - XXX
+ * @menu: YYY
+ * @ip:   YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int menu_dialog_dokey (MUTTMENU *menu, int *ip)
 {
   event_t ch;
@@ -901,6 +1156,14 @@ static int menu_dialog_dokey (MUTTMENU *menu, int *ip)
   }
 }
 
+/**
+ * menu_redraw - XXX
+ * @menu: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int menu_redraw (MUTTMENU *menu)
 {
   /* See if all or part of the screen needs to be updated.  */
@@ -933,6 +1196,14 @@ int menu_redraw (MUTTMENU *menu)
   return OP_NULL;
 }
 
+/**
+ * mutt_menuLoop - XXX
+ * @menu: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int mutt_menuLoop (MUTTMENU *menu)
 {
   static int last_position = -1;

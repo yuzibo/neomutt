@@ -35,6 +35,15 @@
 #include "mutt_sasl.h"
 #endif
 
+/**
+ * pop_auth_sasl - XXX
+ * @pop_data: YYY
+ * @method:   YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: pop_auth_res_t
+ */
 #ifdef USE_SASL
 /* SASL authenticator */
 static pop_auth_res_t pop_auth_sasl (POP_DATA *pop_data, const char *method)
@@ -184,6 +193,13 @@ bail:
 }
 #endif
 
+/**
+ * pop_apop_timestamp - XXX
+ * @pop_data: YYY
+ * @buf:      YYY
+ *
+ * DESCRIPTION
+ */
 /* Get the server timestamp for APOP authentication */
 void pop_apop_timestamp (POP_DATA *pop_data, char *buf)
 {
@@ -198,6 +214,15 @@ void pop_apop_timestamp (POP_DATA *pop_data, char *buf)
   }
 }
 
+/**
+ * pop_auth_apop - XXX
+ * @pop_data: YYY
+ * @method:   YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: pop_auth_res_t
+ */
 /* APOP authenticator */
 static pop_auth_res_t pop_auth_apop (POP_DATA *pop_data, const char *method)
 {
@@ -246,6 +271,15 @@ static pop_auth_res_t pop_auth_apop (POP_DATA *pop_data, const char *method)
   return POP_A_FAILURE;
 }
 
+/**
+ * pop_auth_user - XXX
+ * @pop_data: YYY
+ * @method:   YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: pop_auth_res_t
+ */
 /* USER authenticator */
 static pop_auth_res_t pop_auth_user (POP_DATA *pop_data, const char *method)
 {
@@ -313,6 +347,14 @@ static const pop_auth_t pop_authenticators[] = {
   { NULL,	   NULL }
 };
 
+/**
+ * pop_authenticate - XXX
+ * @pop_data: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /*
  * Authentication
  *  0 - successful,

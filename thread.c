@@ -28,6 +28,15 @@
 
 #define VISIBLE(hdr, ctx) (hdr->virtual >= 0 || (hdr->collapsed && (!ctx->pattern || hdr->limited)))
 
+/**
+ * is_descendant - XXX
+ * @a: YYY
+ * @b: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /* determine whether a is a descendant of b */
 static int is_descendant (THREAD *a, THREAD *b)
 {
@@ -40,6 +49,15 @@ static int is_descendant (THREAD *a, THREAD *b)
   return (0);
 }
 
+/**
+ * need_display_subject - XXX
+ * @ctx: YYY
+ * @hdr: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /* Determines whether to display a message's subject. */
 static int need_display_subject (CONTEXT *ctx, HEADER *hdr)
 {
@@ -85,6 +103,12 @@ static int need_display_subject (CONTEXT *ctx, HEADER *hdr)
   return (1);
 }
 
+/**
+ * linearize_tree - XXX
+ * @ctx: YYY
+ *
+ * DESCRIPTION
+ */
 static void linearize_tree (CONTEXT *ctx)
 {
   THREAD *tree = ctx->tree;
@@ -116,6 +140,13 @@ static void linearize_tree (CONTEXT *ctx)
   }
 }
 
+/**
+ * calculate_visibility - XXX
+ * @ctx:       YYY
+ * @max_depth: YYY
+ *
+ * DESCRIPTION
+ */
 /* this calculates whether a node is the root of a subtree that has visible
  * nodes, whether a node itself is visible, whether, if invisible, it has
  * depth anyway, and whether any of its later siblings are roots of visible
@@ -223,6 +254,12 @@ static void calculate_visibility (CONTEXT *ctx, int *max_depth)
   }
 }
 
+/**
+ * mutt_draw_tree - XXX
+ * @ctx: YYY
+ *
+ * DESCRIPTION
+ */
 /* Since the graphics characters have a value >255, I have to resort to
  * using escape sequences to pass the information to print_enriched_string().
  * These are the macros MUTT_TREE_* defined in mutt.h.
@@ -343,6 +380,15 @@ void mutt_draw_tree (CONTEXT *ctx)
   FREE (&arrow);
 }
 
+/**
+ * make_subject_list - XXX
+ * @cur:     YYY
+ * @dateptr: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: LIST*
+ */
 /* since we may be trying to attach as a pseudo-thread a THREAD that
  * has no message, we have to make a list of all the subjects of its
  * most immediate existing descendants.  we also note the earliest
@@ -408,6 +454,15 @@ static LIST *make_subject_list (THREAD *cur, time_t *dateptr)
   return (subjects);
 }
 
+/**
+ * find_subject - XXX
+ * @ctx: YYY
+ * @cur: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: THREAD*
+ */
 /* find the best possible match for a parent mesage based upon subject.
  * if there are multiple matches, the one which was sent the latest, but
  * before the current message, is used. 
@@ -452,6 +507,13 @@ static THREAD *find_subject (CONTEXT *ctx, THREAD *cur)
   return (last);
 }
 
+/**
+ * unlink_message - XXX
+ * @old: YYY
+ * @cur: YYY
+ *
+ * DESCRIPTION
+ */
 /* remove cur and its descendants from their current location.
  * also make sure ancestors of cur no longer are sorted by the
  * fact that cur is their descendant. */
@@ -475,6 +537,14 @@ static void unlink_message (THREAD **old, THREAD *cur)
   }
 }
 
+/**
+ * insert_message - XXX
+ * @new:       YYY
+ * @newparent: YYY
+ * @cur:       YYY
+ *
+ * DESCRIPTION
+ */
 /* add cur as a prior sibling of *new, with parent newparent */
 static void insert_message (THREAD **new, THREAD *newparent, THREAD *cur)
 {
@@ -487,6 +557,12 @@ static void insert_message (THREAD **new, THREAD *newparent, THREAD *cur)
   *new = cur;
 }
 
+/**
+ * pseudo_threads - XXX
+ * @ctx: YYY
+ *
+ * DESCRIPTION
+ */
 /* thread by subject things that didn't get threaded by message-id */
 static void pseudo_threads (CONTEXT *ctx)
 {
@@ -549,6 +625,12 @@ static void pseudo_threads (CONTEXT *ctx)
 }
 
 
+/**
+ * mutt_clear_threads - XXX
+ * @ctx: YYY
+ *
+ * DESCRIPTION
+ */
 void mutt_clear_threads (CONTEXT *ctx)
 {
   int i;
@@ -568,6 +650,15 @@ void mutt_clear_threads (CONTEXT *ctx)
     hash_destroy (&ctx->thread_hash, *free);
 }
 
+/**
+ * compare_threads - XXX
+ * @a: YYY
+ * @b: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int compare_threads (const void *a, const void *b)
 {
   static sort_t *sort_func = NULL;
@@ -585,6 +676,15 @@ static int compare_threads (const void *a, const void *b)
   }
 }
 
+/**
+ * mutt_sort_subthreads - XXX
+ * @thread: YYY
+ * @init:   YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: THREAD*
+ */
 THREAD *mutt_sort_subthreads (THREAD *thread, int init)
 {
   THREAD **array, *sort_key, *top, *tmp;
@@ -715,6 +815,13 @@ THREAD *mutt_sort_subthreads (THREAD *thread, int init)
   }
 }
 
+/**
+ * check_subjects - XXX
+ * @ctx:  YYY
+ * @init: YYY
+ *
+ * DESCRIPTION
+ */
 static void check_subjects (CONTEXT *ctx, int init)
 {
   HEADER *cur;
@@ -747,6 +854,13 @@ static void check_subjects (CONTEXT *ctx, int init)
   }
 }
 
+/**
+ * mutt_sort_threads - XXX
+ * @ctx:  YYY
+ * @init: YYY
+ *
+ * DESCRIPTION
+ */
 void mutt_sort_threads (CONTEXT *ctx, int init)
 {
   HEADER *cur;
@@ -974,6 +1088,15 @@ void mutt_sort_threads (CONTEXT *ctx, int init)
   }
 }
 
+/**
+ * find_virtual - XXX
+ * @cur:     YYY
+ * @reverse: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: HEADER*
+ */
 static HEADER *find_virtual (THREAD *cur, int reverse)
 {
   THREAD *top;
@@ -1016,6 +1139,16 @@ static HEADER *find_virtual (THREAD *cur, int reverse)
   }
 }
 
+/**
+ * _mutt_aside_thread - XXX
+ * @hdr:        YYY
+ * @dir:        YYY
+ * @subthreads: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /* dir => true when moving forward, false when moving in reverse
  * subthreads => false when moving to next thread, true when moving to next subthread
  */
@@ -1075,6 +1208,16 @@ int _mutt_aside_thread (HEADER *hdr, short dir, short subthreads)
   return (tmp->virtual);
 }
 
+/**
+ * mutt_parent_message - XXX
+ * @ctx:       YYY
+ * @hdr:       YYY
+ * @find_root: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int mutt_parent_message (CONTEXT *ctx, HEADER *hdr, int find_root)
 {
   THREAD *thread;
@@ -1116,6 +1259,12 @@ int mutt_parent_message (CONTEXT *ctx, HEADER *hdr, int find_root)
   return (parent->virtual);
 }
 
+/**
+ * mutt_set_virtual - XXX
+ * @ctx: YYY
+ *
+ * DESCRIPTION
+ */
 void mutt_set_virtual (CONTEXT *ctx)
 {
   int i;
@@ -1138,6 +1287,16 @@ void mutt_set_virtual (CONTEXT *ctx)
   }
 }
 
+/**
+ * _mutt_traverse_thread - XXX
+ * @ctx:  YYY
+ * @cur:  YYY
+ * @flag: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int _mutt_traverse_thread (CONTEXT *ctx, HEADER *cur, int flag)
 {
   THREAD *thread, *top;
@@ -1294,6 +1453,16 @@ int _mutt_traverse_thread (CONTEXT *ctx, HEADER *cur, int flag)
 }
 
 
+/**
+ * mutt_messages_in_thread - XXX
+ * @ctx:  YYY
+ * @hdr:  YYY
+ * @flag: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /* if flag is 0, we want to know how many messages
  * are in the thread.  if flag is 1, we want to know
  * our position in the thread. */
@@ -1329,6 +1498,14 @@ int mutt_messages_in_thread (CONTEXT *ctx, HEADER *hdr, int flag)
 }
 
 
+/**
+ * mutt_make_id_hash - XXX
+ * @ctx: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: HASH*
+ */
 HASH *mutt_make_id_hash (CONTEXT *ctx)
 {
   int i;
@@ -1347,6 +1524,14 @@ HASH *mutt_make_id_hash (CONTEXT *ctx)
   return hash;
 }
 
+/**
+ * mutt_make_subj_hash - XXX
+ * @ctx: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: HASH*
+ */
 HASH *mutt_make_subj_hash (CONTEXT *ctx)
 {
   int i;
@@ -1365,6 +1550,13 @@ HASH *mutt_make_subj_hash (CONTEXT *ctx)
   return hash;
 }
 
+/**
+ * clean_references - XXX
+ * @brk: YYY
+ * @cur: YYY
+ *
+ * DESCRIPTION
+ */
 static void clean_references (THREAD *brk, THREAD *cur)
 {
   THREAD *p;
@@ -1402,6 +1594,12 @@ static void clean_references (THREAD *brk, THREAD *cur)
   }
 }
 
+/**
+ * mutt_break_thread - XXX
+ * @hdr: YYY
+ *
+ * DESCRIPTION
+ */
 void mutt_break_thread (HEADER *hdr)
 {
   mutt_free_list (&hdr->env->in_reply_to);
@@ -1411,6 +1609,16 @@ void mutt_break_thread (HEADER *hdr)
   clean_references (hdr->thread, hdr->thread->child);
 }
 
+/**
+ * link_threads - XXX
+ * @parent: YYY
+ * @child:  YYY
+ * @ctx:    YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int link_threads (HEADER *parent, HEADER *child, CONTEXT *ctx)
 {
   if (child == parent)
@@ -1427,6 +1635,16 @@ static int link_threads (HEADER *parent, HEADER *child, CONTEXT *ctx)
   return 1;
 }
 
+/**
+ * mutt_link_threads - XXX
+ * @cur:  YYY
+ * @last: YYY
+ * @ctx:  YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int mutt_link_threads (HEADER *cur, HEADER *last, CONTEXT *ctx)
 {
   int i, changed = 0;

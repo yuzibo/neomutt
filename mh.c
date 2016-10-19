@@ -103,6 +103,13 @@ static inline struct mh_data *mh_data (CONTEXT *ctx)
   return (struct mh_data*)ctx->data;
 }
 
+/**
+ * mhs_alloc - XXX
+ * @mhs: YYY
+ * @i:   YYY
+ *
+ * DESCRIPTION
+ */
 static void mhs_alloc (struct mh_sequences *mhs, int i)
 {
   int j;
@@ -120,11 +127,26 @@ static void mhs_alloc (struct mh_sequences *mhs, int i)
   }
 }
 
+/**
+ * mhs_free_sequences - XXX
+ * @mhs: YYY
+ *
+ * DESCRIPTION
+ */
 static void mhs_free_sequences (struct mh_sequences *mhs)
 {
   FREE (&mhs->flags);
 }
 
+/**
+ * mhs_check - XXX
+ * @mhs: YYY
+ * @i:   YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: short
+ */
 static short mhs_check (struct mh_sequences *mhs, int i)
 {
   if (!mhs->flags || i > mhs->max)
@@ -133,6 +155,16 @@ static short mhs_check (struct mh_sequences *mhs, int i)
     return mhs->flags[i];
 }
 
+/**
+ * mhs_set - XXX
+ * @mhs: YYY
+ * @i:   YYY
+ * @f:   YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: short
+ */
 static short mhs_set (struct mh_sequences *mhs, int i, short f)
 {
   mhs_alloc (mhs, i);
@@ -153,6 +185,16 @@ static short mhs_unset (struct mh_sequences *mhs, int i, short f)
 
 #endif
 
+/**
+ * mh_read_token - XXX
+ * @t:     YYY
+ * @first: YYY
+ * @last:  YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int mh_read_token (char *t, int *first, int *last)
 {
   char *p;
@@ -171,6 +213,15 @@ static int mh_read_token (char *t, int *first, int *last)
   return 0;
 }
 
+/**
+ * mh_read_sequences - XXX
+ * @mhs:  YYY
+ * @path: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int mh_read_sequences (struct mh_sequences *mhs, const char *path)
 {
   FILE *fp;
@@ -240,6 +291,14 @@ static inline mode_t mh_umask (CONTEXT* ctx)
   return 0777 & ~st.st_mode;
 }
 
+/**
+ * mh_sequences_changed - XXX
+ * @b: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /*
  * Returns 1 if the .mh_sequences last modification time is more recent than the last visit to this mailbox
  * Returns 0 if the modifcation time is older
@@ -256,6 +315,15 @@ static int mh_sequences_changed(BUFFY *b)
   return -1;
 }
 
+/**
+ * mh_already_notified - XXX
+ * @b:     YYY
+ * @msgno: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /*
  * Returns 1 if the modification time on the message file is older than the last visit to this mailbox
  * Returns 0 if the modtime is newer
@@ -272,6 +340,15 @@ static int mh_already_notified(BUFFY *b, int msgno)
   return -1;
 }
 
+/**
+ * mh_buffy - XXX
+ * @mailbox:     YYY
+ * @check_stats: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /* Checks new mail for a mh mailbox.
  * check_stats: if true, also count total, new, and flagged mesages.
  * Returns 1 if the mailbox has new mail.
@@ -354,6 +431,16 @@ int mh_buffy (BUFFY *mailbox, int check_stats)
   return rc;
 }
 
+/**
+ * mh_mkstemp - XXX
+ * @dest: YYY
+ * @fp:   YYY
+ * @tgt:  YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int mh_mkstemp (CONTEXT * dest, FILE ** fp, char **tgt)
 {
   int fd;
@@ -393,6 +480,15 @@ static int mh_mkstemp (CONTEXT * dest, FILE ** fp, char **tgt)
   return 0;
 }
 
+/**
+ * mhs_write_one_sequence - XXX
+ * @fp:  YYY
+ * @mhs: YYY
+ * @f:   YYY
+ * @tag: YYY
+ *
+ * DESCRIPTION
+ */
 static void mhs_write_one_sequence (FILE * fp, struct mh_sequences *mhs,
 				    short f, const char *tag)
 {
@@ -437,6 +533,12 @@ static void mhs_write_one_sequence (FILE * fp, struct mh_sequences *mhs,
 
 /* XXX - we don't currently remove deleted messages from sequences we don't know.  Should we? */
 
+/**
+ * mh_update_sequences - XXX
+ * @ctx: YYY
+ *
+ * DESCRIPTION
+ */
 static void mh_update_sequences (CONTEXT * ctx)
 {
   FILE *ofp, *nfp;
@@ -546,6 +648,16 @@ static void mh_update_sequences (CONTEXT * ctx)
   FREE (&tmpfname);
 }
 
+/**
+ * mh_sequences_add_one - XXX
+ * @ctx:     YYY
+ * @n:       YYY
+ * @unseen:  YYY
+ * @flagged: YYY
+ * @replied: YYY
+ *
+ * DESCRIPTION
+ */
 static void mh_sequences_add_one (CONTEXT * ctx, int n, short unseen,
 				  short flagged, short replied)
 {
@@ -618,6 +730,13 @@ static void mh_sequences_add_one (CONTEXT * ctx, int n, short unseen,
   FREE (&tmpfname);
 }
 
+/**
+ * mh_update_maildir - XXX
+ * @md:  YYY
+ * @mhs: YYY
+ *
+ * DESCRIPTION
+ */
 static void mh_update_maildir (struct maildir *md, struct mh_sequences *mhs)
 {
   int i;
@@ -643,6 +762,12 @@ static void mh_update_maildir (struct maildir *md, struct mh_sequences *mhs)
 
 /* maildir support */
 
+/**
+ * maildir_free_entry - XXX
+ * @md: YYY
+ *
+ * DESCRIPTION
+ */
 static void maildir_free_entry (struct maildir **md)
 {
   if (!md || !*md)
@@ -655,6 +780,12 @@ static void maildir_free_entry (struct maildir **md)
   FREE (md);		/* __FREE_CHECKED__ */
 }
 
+/**
+ * maildir_free_maildir - XXX
+ * @md: YYY
+ *
+ * DESCRIPTION
+ */
 static void maildir_free_maildir (struct maildir **md)
 {
   struct maildir *p, *q;
@@ -669,6 +800,13 @@ static void maildir_free_maildir (struct maildir **md)
   }
 }
 
+/**
+ * maildir_parse_flags - XXX
+ * @h:    YYY
+ * @path: YYY
+ *
+ * DESCRIPTION
+ */
 void maildir_parse_flags (HEADER * h, const char *path)
 {
   char *p, *q = NULL;
@@ -725,6 +863,12 @@ void maildir_parse_flags (HEADER * h, const char *path)
     *q = '\0';
 }
 
+/**
+ * maildir_update_mtime - XXX
+ * @ctx: YYY
+ *
+ * DESCRIPTION
+ */
 static void maildir_update_mtime (CONTEXT * ctx)
 {
   char buf[_POSIX_PATH_MAX];
@@ -751,6 +895,18 @@ static void maildir_update_mtime (CONTEXT * ctx)
     ctx->mtime = st.st_mtime;
 }
 
+/**
+ * maildir_parse_stream - XXX
+ * @magic:  YYY
+ * @f:      YYY
+ * @fname:  YYY
+ * @is_old: YYY
+ * @_h:     YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: HEADER*
+ */
 /* 
  * Actually parse a maildir message.  This may also be used to fill
  * out a fake header structure generated by lazy maildir parsing.
@@ -788,6 +944,17 @@ HEADER *maildir_parse_stream (int magic, FILE *f, const char *fname,
   return h;
 }
 
+/**
+ * maildir_parse_message - XXX
+ * @magic:  YYY
+ * @fname:  YYY
+ * @is_old: YYY
+ * @h:      YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: HEADER*
+ */
 /*
  * Actually parse a maildir message.  This may also be used to fill
  * out a fake header structure generated by lazy maildir parsing.
@@ -810,6 +977,14 @@ HEADER *maildir_parse_message (int magic, const char *fname,
  * it.
  */
 
+/**
+ * mh_valid_message - XXX
+ * @s: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int mh_valid_message (const char *s)
 {
   for (; *s; s++)
@@ -820,6 +995,18 @@ int mh_valid_message (const char *s)
   return 1;
 }
 
+/**
+ * maildir_parse_dir - XXX
+ * @ctx:      YYY
+ * @last:     YYY
+ * @subdir:   YYY
+ * @count:    YYY
+ * @progress: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int maildir_parse_dir (CONTEXT * ctx, struct maildir ***last,
 			      const char *subdir, int *count,
 			      progress_t *progress)
@@ -888,6 +1075,15 @@ static int maildir_parse_dir (CONTEXT * ctx, struct maildir ***last,
   return 0;
 }
 
+/**
+ * maildir_add_to_context - XXX
+ * @ctx: YYY
+ * @md:  YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int maildir_add_to_context (CONTEXT * ctx, struct maildir *md)
 {
   int oldmsgcount = ctx->msgcount;
@@ -929,6 +1125,15 @@ static int maildir_add_to_context (CONTEXT * ctx, struct maildir *md)
   return 0;
 }
 
+/**
+ * maildir_move_to_context - XXX
+ * @ctx: YYY
+ * @md:  YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int maildir_move_to_context (CONTEXT * ctx, struct maildir **md)
 {
   int r;
@@ -937,6 +1142,14 @@ static int maildir_move_to_context (CONTEXT * ctx, struct maildir **md)
   return r;
 }
 
+/**
+ * maildir_hcache_keylen - XXX
+ * @fn: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: size_t
+ */
 #if USE_HCACHE
 static size_t maildir_hcache_keylen (const char *fn)
 {
@@ -945,6 +1158,15 @@ static size_t maildir_hcache_keylen (const char *fn)
 }
 #endif
 
+/**
+ * md_cmp_inode - XXX
+ * @a: YYY
+ * @b: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 #if HAVE_DIRENT_D_INO
 static int md_cmp_inode (struct maildir *a, struct maildir *b)
 {
@@ -952,11 +1174,33 @@ static int md_cmp_inode (struct maildir *a, struct maildir *b)
 }
 #endif
 
+/**
+ * md_cmp_path - XXX
+ * @a: YYY
+ * @b: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int md_cmp_path (struct maildir *a, struct maildir *b)
 {
   return strcmp (a->h->path, b->h->path);
 }
 
+/**
+ * maildir_merge_lists - XXX
+ * @left:  YYY
+ * @right: YYY
+ * @int:   YYY
+ * @cmp:   YYY
+ * @:      YYY
+ * @:      YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: struct maildir*
+ */
 /*
  * Merge two maildir lists according to the inode numbers.
  */
@@ -1018,6 +1262,18 @@ static struct maildir*  maildir_merge_lists (struct maildir *left,
   return head;
 }
 
+/**
+ * maildir_ins_sort - XXX
+ * @list: YYY
+ * @int:  YYY
+ * @cmp:  YYY
+ * @:     YYY
+ * @:     YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: struct maildir*
+ */
 static struct maildir* maildir_ins_sort (struct maildir* list,
 					 int (*cmp) (struct maildir *,
 						     struct maildir *))
@@ -1047,6 +1303,19 @@ static struct maildir* maildir_ins_sort (struct maildir* list,
   return ret;
 }
 
+/**
+ * maildir_sort - XXX
+ * @list: YYY
+ * @len:  YYY
+ * @int:  YYY
+ * @cmp:  YYY
+ * @:     YYY
+ * @:     YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: struct maildir*
+ */
 /*
  * Sort maildir list according to inode.
  */
@@ -1083,6 +1352,13 @@ static struct maildir* maildir_sort (struct maildir* list, size_t len,
   return maildir_merge_lists (left, right, cmp);
 }
 
+/**
+ * mh_sort_natural - XXX
+ * @ctx: YYY
+ * @md:  YYY
+ *
+ * DESCRIPTION
+ */
 /* Sorts mailbox into it's natural order.
  * Currently only defined for MH where files are numbered.
  */
@@ -1095,6 +1371,15 @@ static void mh_sort_natural (CONTEXT *ctx, struct maildir **md)
   *md = maildir_sort (*md, (size_t) -1, md_cmp_path);
 }
 
+/**
+ * skip_duplicates - XXX
+ * @p:    YYY
+ * @last: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: struct maildir*
+ */
 #if HAVE_DIRENT_D_INO
 static struct maildir *skip_duplicates (struct maildir *p, struct maildir **last)
 {
@@ -1116,6 +1401,14 @@ static struct maildir *skip_duplicates (struct maildir *p, struct maildir **last
 }
 #endif
 
+/**
+ * maildir_delayed_parsing - XXX
+ * @ctx:      YYY
+ * @md:       YYY
+ * @progress: YYY
+ *
+ * DESCRIPTION
+ */
 /* 
  * This function does the second parsing pass
  */
@@ -1247,6 +1540,14 @@ static void maildir_delayed_parsing (CONTEXT * ctx, struct maildir **md,
   mh_sort_natural (ctx, md);
 }
 
+/**
+ * mh_close_mailbox - XXX
+ * @ctx: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int mh_close_mailbox (CONTEXT *ctx)
 {
   FREE (&ctx->data);
@@ -1254,6 +1555,15 @@ static int mh_close_mailbox (CONTEXT *ctx)
   return 0;
 }
 
+/**
+ * mh_read_dir - XXX
+ * @ctx:    YYY
+ * @subdir: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /* Read a MH/maildir style mailbox.
  *
  * args:
@@ -1318,6 +1628,14 @@ static int mh_read_dir (CONTEXT * ctx, const char *subdir)
   return 0;
 }
 
+/**
+ * maildir_read_dir - XXX
+ * @ctx: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /* read a maildir style mailbox */
 static int maildir_read_dir (CONTEXT * ctx)
 {
@@ -1330,11 +1648,28 @@ static int maildir_read_dir (CONTEXT * ctx)
   return 0;
 }
 
+/**
+ * maildir_open_mailbox - XXX
+ * @ctx: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int maildir_open_mailbox (CONTEXT *ctx)
 {
   return maildir_read_dir (ctx);
 }
 
+/**
+ * maildir_open_mailbox_append - XXX
+ * @ctx:   YYY
+ * @flags: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int maildir_open_mailbox_append (CONTEXT *ctx, int flags)
 {
   char tmp[_POSIX_PATH_MAX];
@@ -1381,11 +1716,28 @@ static int maildir_open_mailbox_append (CONTEXT *ctx, int flags)
   return 0;
 }
 
+/**
+ * mh_open_mailbox - XXX
+ * @ctx: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int mh_open_mailbox (CONTEXT *ctx)
 {
   return mh_read_dir (ctx, NULL);
 }
 
+/**
+ * mh_open_mailbox_append - XXX
+ * @ctx:   YYY
+ * @flags: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int mh_open_mailbox_append (CONTEXT *ctx, int flags)
 {
   char tmp[_POSIX_PATH_MAX];
@@ -1417,16 +1769,43 @@ static int mh_open_mailbox_append (CONTEXT *ctx, int flags)
  * Open a new (temporary) message in an MH folder.
  */
 
+/**
+ * mh_open_new_message - XXX
+ * @msg:  YYY
+ * @dest: YYY
+ * @hdr:  YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int mh_open_new_message (MESSAGE * msg, CONTEXT * dest, HEADER * hdr)
 {
   return mh_mkstemp (dest, &msg->fp, &msg->path);
 }
 
+/**
+ * ch_compar - XXX
+ * @a: YYY
+ * @b: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int ch_compar (const void *a, const void *b)
 {
   return (int)( *((const char *) a) - *((const char *) b));
 }
 
+/**
+ * maildir_flags - XXX
+ * @dest:    YYY
+ * @destlen: YYY
+ * @hdr:     YYY
+ *
+ * DESCRIPTION
+ */
 void maildir_flags (char *dest, size_t destlen, HEADER * hdr)
 {
   *dest = '\0';
@@ -1454,6 +1833,17 @@ void maildir_flags (char *dest, size_t destlen, HEADER * hdr)
   }
 }
 
+/**
+ * maildir_mh_open_message - XXX
+ * @ctx:        YYY
+ * @msg:        YYY
+ * @msgno:      YYY
+ * @is_maildir: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int maildir_mh_open_message (CONTEXT *ctx, MESSAGE *msg, int msgno,
                                     int is_maildir)
 {
@@ -1477,16 +1867,45 @@ static int maildir_mh_open_message (CONTEXT *ctx, MESSAGE *msg, int msgno,
   return 0;
 }
 
+/**
+ * maildir_open_message - XXX
+ * @ctx:   YYY
+ * @msg:   YYY
+ * @msgno: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int maildir_open_message (CONTEXT *ctx, MESSAGE *msg, int msgno)
 {
   return maildir_mh_open_message (ctx, msg, msgno, 1);
 }
 
+/**
+ * mh_open_message - XXX
+ * @ctx:   YYY
+ * @msg:   YYY
+ * @msgno: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int mh_open_message (CONTEXT *ctx, MESSAGE *msg, int msgno)
 {
   return maildir_mh_open_message (ctx, msg, msgno, 0);
 }
 
+/**
+ * mh_close_message - XXX
+ * @ctx: YYY
+ * @msg: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int mh_close_message (CONTEXT *ctx, MESSAGE *msg)
 {
   return safe_fclose (&msg->fp);
@@ -1500,6 +1919,16 @@ static int mh_close_message (CONTEXT *ctx, MESSAGE *msg)
  *
  */
 
+/**
+ * maildir_open_new_message - XXX
+ * @msg:  YYY
+ * @dest: YYY
+ * @hdr:  YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int maildir_open_new_message (MESSAGE * msg, CONTEXT * dest, HEADER * hdr)
 {
   int fd;
@@ -1587,6 +2016,16 @@ static int maildir_open_new_message (MESSAGE * msg, CONTEXT * dest, HEADER * hdr
  * 
  */
 
+/**
+ * _maildir_commit_message - XXX
+ * @ctx: YYY
+ * @msg: YYY
+ * @hdr: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int _maildir_commit_message (CONTEXT * ctx, MESSAGE * msg, HEADER * hdr)
 {
   char subdir[4];
@@ -1665,6 +2104,15 @@ post_rename_err:
   }
 }
 
+/**
+ * maildir_commit_message - XXX
+ * @ctx: YYY
+ * @msg: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int maildir_commit_message (CONTEXT * ctx, MESSAGE * msg)
 {
   return _maildir_commit_message (ctx, msg, NULL);
@@ -1676,6 +2124,17 @@ static int maildir_commit_message (CONTEXT * ctx, MESSAGE * msg)
  */
 
 
+/**
+ * _mh_commit_message - XXX
+ * @ctx:    YYY
+ * @msg:    YYY
+ * @hdr:    YYY
+ * @updseq: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int _mh_commit_message (CONTEXT * ctx, MESSAGE * msg, HEADER * hdr,
 			       short updseq)
 {
@@ -1752,6 +2211,15 @@ static int _mh_commit_message (CONTEXT * ctx, MESSAGE * msg, HEADER * hdr,
   return 0;
 }
 
+/**
+ * mh_commit_message - XXX
+ * @ctx: YYY
+ * @msg: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int mh_commit_message (CONTEXT * ctx, MESSAGE * msg)
 {
   return _mh_commit_message (ctx, msg, NULL, 1);
@@ -1764,6 +2232,15 @@ static int mh_commit_message (CONTEXT * ctx, MESSAGE * msg)
  * folders.
  */
 
+/**
+ * mh_rewrite_message - XXX
+ * @ctx:   YYY
+ * @msgno: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int mh_rewrite_message (CONTEXT * ctx, int msgno)
 {
   HEADER *h = ctx->hdrs[msgno];
@@ -1837,6 +2314,15 @@ static int mh_rewrite_message (CONTEXT * ctx, int msgno)
   return rc;
 }
 
+/**
+ * mh_sync_message - XXX
+ * @ctx:   YYY
+ * @msgno: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int mh_sync_message (CONTEXT * ctx, int msgno)
 {
   HEADER *h = ctx->hdrs[msgno];
@@ -1849,6 +2335,15 @@ static int mh_sync_message (CONTEXT * ctx, int msgno)
   return 0;
 }
 
+/**
+ * maildir_sync_message - XXX
+ * @ctx:   YYY
+ * @msgno: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int maildir_sync_message (CONTEXT * ctx, int msgno)
 {
   HEADER *h = ctx->hdrs[msgno];
@@ -1912,6 +2407,16 @@ static int maildir_sync_message (CONTEXT * ctx, int msgno)
   return (0);
 }
 
+/**
+ * mh_sync_mailbox_message - XXX
+ * @ctx:   YYY
+ * @msgno: YYY
+ * @hc:    YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 #if USE_HCACHE
 int mh_sync_mailbox_message (CONTEXT * ctx, int msgno, header_cache_t *hc)
 #else
@@ -1999,6 +2504,15 @@ int mh_sync_mailbox_message (CONTEXT * ctx, int msgno)
     return 0;
 }
 
+/**
+ * mh_sync_mailbox - XXX
+ * @ctx:        YYY
+ * @index_hint: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int mh_sync_mailbox (CONTEXT * ctx, int *index_hint)
 {
   int i, j;
@@ -2075,6 +2589,16 @@ err:
   return -1;
 }
 
+/**
+ * maildir_canon_filename - XXX
+ * @dest: YYY
+ * @src:  YYY
+ * @l:    YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: char*
+ */
 static char *maildir_canon_filename (char *dest, const char *src, size_t l)
 {
   char *t, *u;
@@ -2089,6 +2613,13 @@ static char *maildir_canon_filename (char *dest, const char *src, size_t l)
   return dest;
 }
 
+/**
+ * maildir_update_tables - XXX
+ * @ctx:        YYY
+ * @index_hint: YYY
+ *
+ * DESCRIPTION
+ */
 static void maildir_update_tables (CONTEXT *ctx, int *index_hint)
 {
   short old_sort;
@@ -2117,6 +2648,14 @@ static void maildir_update_tables (CONTEXT *ctx, int *index_hint)
   mutt_clear_threads (ctx);
 }
 
+/**
+ * maildir_update_flags - XXX
+ * @ctx: YYY
+ * @o:   YYY
+ * @n:   YYY
+ *
+ * DESCRIPTION
+ */
 void maildir_update_flags (CONTEXT *ctx, HEADER *o, HEADER *n)
 {
   /* save the global state here so we can reset it at the
@@ -2154,6 +2693,15 @@ void maildir_update_flags (CONTEXT *ctx, HEADER *o, HEADER *n)
 }
 
 
+/**
+ * maildir_check_mailbox - XXX
+ * @ctx:        YYY
+ * @index_hint: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /* This function handles arrival of new mail and reopening of
  * maildir folders.  The basic idea here is we check to see if either
  * the new or cur subdirectories have changed, and if so, we scan them
@@ -2308,6 +2856,15 @@ static int maildir_check_mailbox (CONTEXT * ctx, int *index_hint)
  *
  */
 
+/**
+ * mh_check_mailbox - XXX
+ * @ctx:        YYY
+ * @index_hint: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int mh_check_mailbox (CONTEXT * ctx, int *index_hint)
 {
   char buf[_POSIX_PATH_MAX];
@@ -2419,6 +2976,17 @@ static int mh_check_mailbox (CONTEXT * ctx, int *index_hint)
  * then again, it's called rarely.
  */
 
+/**
+ * _maildir_open_find_message - XXX
+ * @folder:    YYY
+ * @unique:    YYY
+ * @subfolder: YYY
+ * @newname:   YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: FILE*
+ */
 static FILE *_maildir_open_find_message (const char *folder, const char *unique,
 				  const char *subfolder, char **newname)
 {
@@ -2463,6 +3031,16 @@ static FILE *_maildir_open_find_message (const char *folder, const char *unique,
   return fp;
 }
 
+/**
+ * maildir_open_find_message - XXX
+ * @folder:  YYY
+ * @msg:     YYY
+ * @newname: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: FILE*
+ */
 FILE *maildir_open_find_message (const char *folder, const char *msg,
                                   char **newname)
 {
@@ -2508,6 +3086,14 @@ FILE *maildir_open_find_message (const char *folder, const char *msg,
 }
 
 
+/**
+ * maildir_check_empty - XXX
+ * @path: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /*
  * Returns:
  * 1 if there are no messages in the mailbox
@@ -2547,6 +3133,14 @@ int maildir_check_empty (const char *path)
   return r;
 }
 
+/**
+ * mh_check_empty - XXX
+ * @path: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /*
  * Returns:
  * 1 if there are no messages in the mailbox
@@ -2574,6 +3168,14 @@ int mh_check_empty (const char *path)
   return r;
 }
 
+/**
+ * mx_is_maildir - XXX
+ * @path: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int mx_is_maildir (const char *path)
 {
   char tmp[_POSIX_PATH_MAX];
@@ -2585,6 +3187,14 @@ int mx_is_maildir (const char *path)
   return 0;
 }
 
+/**
+ * mx_is_mh - XXX
+ * @path: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int mx_is_mh (const char *path)
 {
   char tmp[_POSIX_PATH_MAX];

@@ -64,6 +64,13 @@ enum
 };
 static int sidebar_source = SB_SRC_NONE;
 
+/**
+ * get_incoming - XXX
+ *
+ * DESCRIPTION
+ *
+ * Returns: BUFFY*
+ */
 static BUFFY *
 get_incoming (void)
 {
@@ -236,6 +243,16 @@ static const char *cb_format_str(char *dest, size_t destlen, size_t col, int col
 }
 
 /**
+ * make_sidebar_entry - XXX
+ * @buf:    YYY
+ * @buflen: YYY
+ * @width:  YYY
+ * @box:    YYY
+ * @sbe:    YYY
+ *
+ * DESCRIPTION
+ */
+/**
  * make_sidebar_entry - Turn mailbox data into a sidebar string
  * @buf:     Buffer in which to save string
  * @buflen:  Buffer length
@@ -275,6 +292,15 @@ static void make_sidebar_entry (char *buf, unsigned int buflen, int width, char 
   }
 }
 
+/**
+ * cb_qsort_sbe - XXX
+ * @a: YYY
+ * @b: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /**
  * cb_qsort_sbe - qsort callback to sort SBENTRYs
  * @a: First  SBENTRY to compare
@@ -325,6 +351,11 @@ static int cb_qsort_sbe (const void *a, const void *b)
 }
 
 /**
+ * update_entries_visibility - XXX
+ *
+ * DESCRIPTION
+ */
+/**
  * update_entries_visibility - Should a sidebar_entry be displayed in the sidebar
  *
  * For each SBENTRY in the Entries array, check whether we should display it.
@@ -368,6 +399,11 @@ static void update_entries_visibility (void)
 }
 
 /**
+ * unsort_entries - XXX
+ *
+ * DESCRIPTION
+ */
+/**
  * unsort_entries - Restore Entries array order to match Buffy list order
  */
 static void unsort_entries (void)
@@ -397,6 +433,11 @@ static void unsort_entries (void)
 }
 
 /**
+ * sort_entries - XXX
+ *
+ * DESCRIPTION
+ */
+/**
  * sort_entries - Sort Entries array.
  *
  * Sort the Entries array according to the current sort config
@@ -420,6 +461,14 @@ static void sort_entries (void)
     unsort_entries ();
 }
 
+/**
+ * prepare_sidebar - XXX
+ * @page_size: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /**
  * prepare_sidebar - Prepare the list of SBENTRYs for the sidebar display
  * @page_size:  The number of lines on a page
@@ -508,6 +557,15 @@ static int prepare_sidebar (int page_size)
 }
 
 /**
+ * draw_divider - XXX
+ * @num_rows: YYY
+ * @num_cols: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
+/**
  * draw_divider - Draw a line between the sidebar and the rest of mutt
  * @num_rows:   Height of the Sidebar
  * @num_cols:   Width of the Sidebar
@@ -552,6 +610,15 @@ static int draw_divider (int num_rows, int num_cols)
 }
 
 /**
+ * fill_empty_space - XXX
+ * @first_row: YYY
+ * @num_rows:  YYY
+ * @div_width: YYY
+ * @num_cols:  YYY
+ *
+ * DESCRIPTION
+ */
+/**
  * fill_empty_space - Wipe the remaining Sidebar space
  * @first_row:  Window line to start (0-based)
  * @num_rows:   Number of rows to fill
@@ -579,6 +646,14 @@ static void fill_empty_space (int first_row, int num_rows, int div_width, int nu
   }
 }
 
+/**
+ * draw_sidebar - XXX
+ * @num_rows:  YYY
+ * @num_cols:  YYY
+ * @div_width: YYY
+ *
+ * DESCRIPTION
+ */
 /**
  * draw_sidebar - Write out a list of mailboxes, on the left
  * @num_rows:   Height of the Sidebar
@@ -736,6 +811,11 @@ static void draw_sidebar (int num_rows, int num_cols, int div_width)
 
 
 /**
+ * mutt_sb_draw - XXX
+ *
+ * DESCRIPTION
+ */
+/**
  * mutt_sb_draw - Completely redraw the sidebar
  *
  * Completely refresh the sidebar region.  First draw the divider; then, for
@@ -780,6 +860,13 @@ void mutt_sb_draw (void)
 }
 
 /**
+ * select_next - XXX
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
+/**
  * select_next - Selects the next unhidden mailbox
  *
  * Returns:
@@ -804,6 +891,13 @@ static int select_next (void)
   return 1;
 }
 
+/**
+ * select_next_new - XXX
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /**
  * select_next_new - Selects the next new mailbox
  *
@@ -840,6 +934,13 @@ static int select_next_new (void)
 }
 
 /**
+ * select_prev - XXX
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
+/**
  * select_prev - Selects the previous unhidden mailbox
  *
  * Returns:
@@ -864,6 +965,13 @@ static int select_prev (void)
   return 1;
 }
 
+/**
+ * select_prev_new - XXX
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /**
  * select_prev_new - Selects the previous new mailbox
  *
@@ -900,6 +1008,13 @@ static int select_prev_new (void)
 }
 
 /**
+ * select_page_down - XXX
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
+/**
  * select_page_down - Selects the first entry in the next page of mailboxes
  *
  * Returns:
@@ -923,6 +1038,13 @@ static int select_page_down (void)
 }
 
 /**
+ * select_page_up - XXX
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
+/**
  * select_page_up - Selects the last entry in the previous page of mailboxes
  *
  * Returns:
@@ -945,6 +1067,12 @@ static int select_page_up (void)
   return (orig_hil_index != HilIndex);
 }
 
+/**
+ * mutt_sb_change_mailbox - XXX
+ * @op: YYY
+ *
+ * DESCRIPTION
+ */
 /**
  * mutt_sb_change_mailbox - Change the selected mailbox
  * @op: Operation code
@@ -1001,6 +1129,12 @@ void mutt_sb_change_mailbox (int op)
 }
 
 /**
+ * mutt_sb_set_buffystats - XXX
+ * @ctx: YYY
+ *
+ * DESCRIPTION
+ */
+/**
  * mutt_sb_set_buffystats - Update the BUFFY's message counts from the CONTEXT
  * @ctx:  A mailbox CONTEXT
  *
@@ -1028,6 +1162,13 @@ void mutt_sb_set_buffystats (const CONTEXT *ctx)
 }
 
 /**
+ * mutt_sb_get_highlight - XXX
+ *
+ * DESCRIPTION
+ *
+ * Returns: const char*
+ */
+/**
  * mutt_sb_get_highlight - Get the BUFFY that's highlighted in the sidebar
  *
  * Get the path of the mailbox that's highlighted in the sidebar.
@@ -1046,6 +1187,11 @@ const char *mutt_sb_get_highlight (void)
   return Entries[HilIndex]->buffy->path;
 }
 
+/**
+ * mutt_sb_set_open_buffy - XXX
+ *
+ * DESCRIPTION
+ */
 /**
  * mutt_sb_set_open_buffy - Set the OpnBuffy based on the global Context
  *
@@ -1072,6 +1218,13 @@ void mutt_sb_set_open_buffy (void)
   }
 }
 
+/**
+ * mutt_sb_notify_mailbox - XXX
+ * @b:       YYY
+ * @created: YYY
+ *
+ * DESCRIPTION
+ */
 /**
  * mutt_sb_notify_mailbox - The state of a BUFFY is about to change
  *
@@ -1142,6 +1295,11 @@ void mutt_sb_notify_mailbox (BUFFY *b, int created)
   SidebarNeedsRedraw = 1;
 }
 
+/**
+ * mutt_sb_toggle_virtual - XXX
+ *
+ * DESCRIPTION
+ */
 /**
  * mutt_sb_toggle_virtual - Switch between regular and virtual folders
  */

@@ -47,6 +47,14 @@ static int tunnel_socket_read (CONNECTION* conn, char* buf, size_t len);
 static int tunnel_socket_write (CONNECTION* conn, const char* buf, size_t len);
 static int tunnel_socket_poll (CONNECTION* conn);
 
+/**
+ * mutt_tunnel_socket_setup - XXX
+ * @conn: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /* -- public functions -- */
 int mutt_tunnel_socket_setup (CONNECTION *conn)
 {
@@ -59,6 +67,14 @@ int mutt_tunnel_socket_setup (CONNECTION *conn)
   return 0;
 }
 
+/**
+ * tunnel_socket_open - XXX
+ * @conn: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int tunnel_socket_open (CONNECTION *conn)
 {
   TUNNEL_DATA* tunnel;
@@ -136,6 +152,14 @@ static int tunnel_socket_open (CONNECTION *conn)
   return 0;
 }
 
+/**
+ * tunnel_socket_close - XXX
+ * @conn: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int tunnel_socket_close (CONNECTION* conn)
 {
   TUNNEL_DATA* tunnel = (TUNNEL_DATA*) conn->sockdata;
@@ -156,6 +180,16 @@ static int tunnel_socket_close (CONNECTION* conn)
   return 0;
 }
 
+/**
+ * tunnel_socket_read - XXX
+ * @conn: YYY
+ * @buf:  YYY
+ * @len:  YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int tunnel_socket_read (CONNECTION* conn, char* buf, size_t len)
 {
   TUNNEL_DATA* tunnel = (TUNNEL_DATA*) conn->sockdata;
@@ -172,6 +206,16 @@ static int tunnel_socket_read (CONNECTION* conn, char* buf, size_t len)
   return rc;
 }
 
+/**
+ * tunnel_socket_write - XXX
+ * @conn: YYY
+ * @buf:  YYY
+ * @len:  YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int tunnel_socket_write (CONNECTION* conn, const char* buf, size_t len)
 {
   TUNNEL_DATA* tunnel = (TUNNEL_DATA*) conn->sockdata;
@@ -188,6 +232,14 @@ static int tunnel_socket_write (CONNECTION* conn, const char* buf, size_t len)
   return rc;
 }
 
+/**
+ * tunnel_socket_poll - XXX
+ * @conn: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int tunnel_socket_poll (CONNECTION* conn)
 {
   TUNNEL_DATA* tunnel = (TUNNEL_DATA*) conn->sockdata;

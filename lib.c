@@ -109,6 +109,13 @@ sysexits_h[] =
   { -1, NULL}
 };
 
+/**
+ * mutt_nocurses_error - XXX
+ * @fmt: YYY
+ * @...: YYY
+ *
+ * DESCRIPTION
+ */
 void mutt_nocurses_error (const char *fmt, ...)
 {
   va_list ap;
@@ -119,6 +126,15 @@ void mutt_nocurses_error (const char *fmt, ...)
   fputc ('\n', stderr);
 }
 
+/**
+ * safe_calloc - XXX
+ * @nmemb: YYY
+ * @size:  YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: void*
+ */
 void *safe_calloc (size_t nmemb, size_t size)
 {
   void *p;
@@ -142,6 +158,14 @@ void *safe_calloc (size_t nmemb, size_t size)
   return p;
 }
 
+/**
+ * safe_malloc - XXX
+ * @siz: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: void*
+ */
 void *safe_malloc (size_t siz)
 {
   void *p;
@@ -157,6 +181,13 @@ void *safe_malloc (size_t siz)
   return (p);
 }
 
+/**
+ * safe_realloc - XXX
+ * @ptr: YYY
+ * @siz: YYY
+ *
+ * DESCRIPTION
+ */
 void safe_realloc (void *ptr, size_t siz)
 {
   void *r;
@@ -190,6 +221,12 @@ void safe_realloc (void *ptr, size_t siz)
   *p = r;
 }
 
+/**
+ * safe_free - XXX
+ * @ptr: YYY
+ *
+ * DESCRIPTION
+ */
 void safe_free (void *ptr)	/* __SAFE_FREE_CHECKED__ */
 {
   void **p = (void **)ptr;
@@ -200,6 +237,14 @@ void safe_free (void *ptr)	/* __SAFE_FREE_CHECKED__ */
   }
 }
 
+/**
+ * safe_fclose - XXX
+ * @f: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int safe_fclose (FILE **f)
 {
   int r = 0;
@@ -211,6 +256,14 @@ int safe_fclose (FILE **f)
   return r;
 }
 
+/**
+ * safe_fsync_close - XXX
+ * @f: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int safe_fsync_close (FILE **f)
 {
   int r = 0;
@@ -231,6 +284,14 @@ int safe_fsync_close (FILE **f)
   return r;
 }
 
+/**
+ * safe_strdup - XXX
+ * @s: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: char*
+ */
 char *safe_strdup (const char *s)
 {
   char *p;
@@ -244,6 +305,16 @@ char *safe_strdup (const char *s)
   return (p);
 }
 
+/**
+ * safe_strcat - XXX
+ * @d: YYY
+ * @l: YYY
+ * @s: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: char*
+ */
 char *safe_strcat (char *d, size_t l, const char *s)
 {
   char *p = d;
@@ -263,6 +334,17 @@ char *safe_strcat (char *d, size_t l, const char *s)
   return p;
 }
 
+/**
+ * safe_strncat - XXX
+ * @d:  YYY
+ * @l:  YYY
+ * @s:  YYY
+ * @sl: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: char*
+ */
 char *safe_strncat (char *d, size_t l, const char *s, size_t sl)
 {
   char *p = d;
@@ -283,18 +365,39 @@ char *safe_strncat (char *d, size_t l, const char *s, size_t sl)
 }
 
 
+/**
+ * mutt_str_replace - XXX
+ * @p: YYY
+ * @s: YYY
+ *
+ * DESCRIPTION
+ */
 void mutt_str_replace (char **p, const char *s)
 {
   FREE (p);		/* __FREE_CHECKED__ */
   *p = safe_strdup (s);
 }
 
+/**
+ * mutt_str_adjust - XXX
+ * @p: YYY
+ *
+ * DESCRIPTION
+ */
 void mutt_str_adjust (char **p)
 {
   if (!p || !*p) return;
   safe_realloc (p, strlen (*p) + 1);
 }
 
+/**
+ * mutt_strlower - XXX
+ * @s: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: char*
+ */
 /* convert all characters in the string to lowercase */
 char *mutt_strlower (char *s)
 {
@@ -328,6 +431,12 @@ const char *mutt_strchrnul(const char *s, char c)
   return s;
 }
 
+/*
+ * mutt_unlink - XXX
+ * @s: YYY
+ *
+ * DESCRIPTION
+ */
 void mutt_unlink (const char *s)
 {
   int fd;
@@ -370,6 +479,16 @@ void mutt_unlink (const char *s)
   }
 }
 
+/**
+ * mutt_copy_bytes - XXX
+ * @in:   YYY
+ * @out:  YYY
+ * @size: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int mutt_copy_bytes (FILE *in, FILE *out, size_t size)
 {
   char buf[2048];
@@ -392,6 +511,15 @@ int mutt_copy_bytes (FILE *in, FILE *out, size_t size)
   return 0;
 }
 
+/**
+ * mutt_copy_stream - XXX
+ * @fin:  YYY
+ * @fout: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int mutt_copy_stream (FILE *fin, FILE *fout)
 {
   size_t l;
@@ -407,6 +535,15 @@ int mutt_copy_stream (FILE *fin, FILE *fout)
   return 0;
 }
 
+/**
+ * compare_stat - XXX
+ * @osb: YYY
+ * @nsb: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int 
 compare_stat (struct stat *osb, struct stat *nsb)
 {
@@ -419,6 +556,15 @@ compare_stat (struct stat *osb, struct stat *nsb)
   return 0;
 }
 
+/**
+ * safe_symlink - XXX
+ * @oldpath: YYY
+ * @newpath: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int safe_symlink(const char *oldpath, const char *newpath)
 {
   struct stat osb, nsb;
@@ -466,6 +612,15 @@ int safe_symlink(const char *oldpath, const char *newpath)
  * Warning: We don't check whether src and target are equal.
  */
 
+/**
+ * safe_rename - XXX
+ * @src:    YYY
+ * @target: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int safe_rename (const char *src, const char *target)
 {
   struct stat ssb, tsb;
@@ -565,6 +720,18 @@ int safe_rename (const char *src, const char *target)
 
 /* Create a temporary directory next to a file name */
 
+/**
+ * mutt_mkwrapdir - XXX
+ * @path:    YYY
+ * @newfile: YYY
+ * @nflen:   YYY
+ * @newdir:  YYY
+ * @ndlen:   YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int mutt_mkwrapdir (const char *path, char *newfile, size_t nflen, 
 		    char *newdir, size_t ndlen)
 {
@@ -601,6 +768,14 @@ static int mutt_mkwrapdir (const char *path, char *newfile, size_t nflen,
   return 0;  
 }
 
+/**
+ * mutt_rmtree - XXX
+ * @path: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /* remove a directory and everything under it */
 int mutt_rmtree (const char* path)
 {
@@ -641,6 +816,16 @@ int mutt_rmtree (const char* path)
   return rc;
 }
 
+/**
+ * mutt_put_file_in_place - XXX
+ * @path:      YYY
+ * @safe_file: YYY
+ * @safe_dir:  YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int mutt_put_file_in_place (const char *path, const char *safe_file, const char *safe_dir)
 {
   int rv;
@@ -651,6 +836,15 @@ static int mutt_put_file_in_place (const char *path, const char *safe_file, cons
   return rv;
 }
 
+/**
+ * safe_open - XXX
+ * @path:  YYY
+ * @flags: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int safe_open (const char *path, int flags)
 {
   struct stat osb, nsb;
@@ -692,6 +886,15 @@ int safe_open (const char *path, int flags)
   return (fd);
 }
 
+/**
+ * safe_fopen - XXX
+ * @path: YYY
+ * @mode: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: FILE*
+ */
 /* when opening files for writing, make sure the file doesn't already exist
  * to avoid race conditions.
  */
@@ -722,6 +925,13 @@ FILE *safe_fopen (const char *path, const char *mode)
 
 static const char safe_chars[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+@{}._-:%/";
 
+/**
+ * mutt_sanitize_filename - XXX
+ * @f:     YYY
+ * @slash: YYY
+ *
+ * DESCRIPTION
+ */
 void mutt_sanitize_filename (char *f, short slash)
 {
   if (!f) return;
@@ -737,6 +947,16 @@ void mutt_sanitize_filename (char *f, short slash)
 
 static const char rx_special_chars[] = "^.[$()|*+?{\\";
 
+/**
+ * mutt_rx_sanitize_string - XXX
+ * @dest:    YYY
+ * @destlen: YYY
+ * @src:     YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int mutt_rx_sanitize_string (char *dest, size_t destlen, const char *src)
 {
   while (*src && --destlen > 2)
@@ -757,6 +977,18 @@ int mutt_rx_sanitize_string (char *dest, size_t destlen, const char *src)
     return 0;
 }
 
+/**
+ * mutt_read_line - XXX
+ * @s:     YYY
+ * @size:  YYY
+ * @fp:    YYY
+ * @line:  YYY
+ * @flags: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: char*
+ */
 /* Read a line from ``fp'' into the dynamically allocated ``s'',
  * increasing ``s'' if necessary. The ending "\n" or "\r\n" is removed.
  * If a line ends with "\", this char and the linefeed is removed,
@@ -820,6 +1052,17 @@ char *mutt_read_line (char *s, size_t *size, FILE *fp, int *line, int flags)
   }
 }
 
+/**
+ * mutt_substrcpy - XXX
+ * @dest:    YYY
+ * @beg:     YYY
+ * @end:     YYY
+ * @destlen: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: char*
+ */
 char *
 mutt_substrcpy (char *dest, const char *beg, const char *end, size_t destlen)
 {
@@ -833,6 +1076,15 @@ mutt_substrcpy (char *dest, const char *beg, const char *end, size_t destlen)
   return dest;
 }
 
+/**
+ * mutt_substrdup - XXX
+ * @begin: YYY
+ * @end:   YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: char*
+ */
 char *mutt_substrdup (const char *begin, const char *end)
 {
   size_t len;
@@ -853,6 +1105,16 @@ char *mutt_substrdup (const char *begin, const char *end)
  * From the Unix programming FAQ by way of Liviu.
  */
 
+/**
+ * mutt_quote_filename - XXX
+ * @d: YYY
+ * @l: YYY
+ * @f: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: size_t
+ */
 size_t mutt_quote_filename (char *d, size_t l, const char *f)
 {
   size_t i, j = 0;
@@ -889,36 +1151,100 @@ size_t mutt_quote_filename (char *d, size_t l, const char *f)
 
 /* NULL-pointer aware string comparison functions */
 
+/**
+ * mutt_strcmp - XXX
+ * @a: YYY
+ * @b: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int mutt_strcmp(const char *a, const char *b)
 {
   return strcmp(NONULL(a), NONULL(b));
 }
 
+/**
+ * mutt_strcasecmp - XXX
+ * @a: YYY
+ * @b: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int mutt_strcasecmp(const char *a, const char *b)
 {
   return strcasecmp(NONULL(a), NONULL(b));
 }
 
+/**
+ * mutt_strncmp - XXX
+ * @a: YYY
+ * @b: YYY
+ * @l: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int mutt_strncmp(const char *a, const char *b, size_t l)
 {
   return strncmp(NONULL(a), NONULL(b), l);
 }
 
+/**
+ * mutt_strncasecmp - XXX
+ * @a: YYY
+ * @b: YYY
+ * @l: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int mutt_strncasecmp(const char *a, const char *b, size_t l)
 {
   return strncasecmp(NONULL(a), NONULL(b), l);
 }
 
+/**
+ * mutt_strlen - XXX
+ * @a: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: size_t
+ */
 size_t mutt_strlen(const char *a)
 {
   return a ? strlen (a) : 0;
 }
 
+/**
+ * mutt_strcoll - XXX
+ * @a: YYY
+ * @b: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int mutt_strcoll(const char *a, const char *b)
 {
   return strcoll(NONULL(a), NONULL(b));
 }
 
+/**
+ * mutt_stristr - XXX
+ * @haystack: YYY
+ * @needle:   YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: const char*
+ */
 const char *mutt_stristr (const char *haystack, const char *needle)
 {
   const char *p, *q;
@@ -942,12 +1268,26 @@ const char *mutt_stristr (const char *haystack, const char *needle)
   return NULL;
 }
 
+/**
+ * mutt_skip_whitespace - XXX
+ * @p: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: char*
+ */
 char *mutt_skip_whitespace (char *p)
 {
   SKIPWS (p);
   return p;
 }
 
+/**
+ * mutt_remove_trailing_ws - XXX
+ * @s: YYY
+ *
+ * DESCRIPTION
+ */
 void mutt_remove_trailing_ws (char *s)
 {
   char *p;
@@ -956,6 +1296,19 @@ void mutt_remove_trailing_ws (char *s)
     *p = 0;
 }
 
+/**
+ * mutt_concatn_path - XXX
+ * @dst:      YYY
+ * @dstlen:   YYY
+ * @dir:      YYY
+ * @dirlen:   YYY
+ * @fname:    YYY
+ * @fnamelen: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: char*
+ */
 /*
  * Write the concatened pathname (dir + "/" + fname) into dst.
  * The slash is omitted when dir or fname is of 0 length.
@@ -999,6 +1352,17 @@ char *mutt_concatn_path (char *dst, size_t dstlen,
   return dst;
 }
 
+/**
+ * mutt_concat_path - XXX
+ * @d:     YYY
+ * @dir:   YYY
+ * @fname: YYY
+ * @l:     YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: char*
+ */
 char *mutt_concat_path (char *d, const char *dir, const char *fname, size_t l)
 {
   const char *fmt = "%s/%s";
@@ -1010,6 +1374,14 @@ char *mutt_concat_path (char *d, const char *dir, const char *fname, size_t l)
   return d;
 }
 
+/**
+ * mutt_basename - XXX
+ * @f: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: const char*
+ */
 const char *mutt_basename (const char *f)
 {
   const char *p = strrchr (f, '/');
@@ -1019,6 +1391,14 @@ const char *mutt_basename (const char *f)
     return f;
 }
 
+/**
+ * mutt_strsysexit - XXX
+ * @e: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: const char*
+ */
 const char *
 mutt_strsysexit(int e)
 {
@@ -1033,6 +1413,14 @@ mutt_strsysexit(int e)
   return sysexits_h[i].str;
 }
 
+/**
+ * mutt_debug - XXX
+ * @fp:  YYY
+ * @fmt: YYY
+ * @...: YYY
+ *
+ * DESCRIPTION
+ */
 void mutt_debug (FILE *fp, const char *fmt, ...)
 {
   va_list ap;
@@ -1051,6 +1439,15 @@ void mutt_debug (FILE *fp, const char *fmt, ...)
   va_end (ap);
 }
 
+/**
+ * mutt_atos - XXX
+ * @str: YYY
+ * @dst: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int mutt_atos (const char *str, short *dst)
 {
   int rc;
@@ -1069,6 +1466,15 @@ int mutt_atos (const char *str, short *dst)
   return 0;
 }
 
+/**
+ * mutt_atoi - XXX
+ * @str: YYY
+ * @dst: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int mutt_atoi (const char *str, int *dst)
 {
   int rc;
@@ -1087,6 +1493,15 @@ int mutt_atoi (const char *str, int *dst)
   return 0;
 }
 
+/**
+ * mutt_atol - XXX
+ * @str: YYY
+ * @dst: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int mutt_atol (const char *str, long *dst)
 {
   long r;
@@ -1107,12 +1522,29 @@ int mutt_atol (const char *str, long *dst)
   return 0;
 }
 
+/**
+ * mutt_is_inbox - XXX
+ * @path: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int mutt_is_inbox (const char *path)
 {
   size_t plen = mutt_strlen (path);
   return ((plen >= 6) && (mutt_strcasecmp (path + plen - 6, "/inbox") == 0));
 }
 
+/**
+ * mutt_same_path - XXX
+ * @a: YYY
+ * @b: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int mutt_same_path (const char *a, const char *b)
 {
   const char *a_end = strrchr (a, '/');
@@ -1131,6 +1563,16 @@ int mutt_same_path (const char *a, const char *b)
   return ((a_len == (b_end - b)) && (mutt_strncasecmp (a, b, a_len) == 0));
 }
 
+/**
+ * strfcpy - XXX
+ * @dest: YYY
+ * @src:  YYY
+ * @dlen: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: char*
+ */
 char * strfcpy (char *dest, const char *src, size_t dlen)
 {
   char *dest0 = dest;

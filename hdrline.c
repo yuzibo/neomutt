@@ -40,6 +40,14 @@
 #include "mutt_notmuch.h"
 #endif
 
+/**
+ * mutt_is_mail_list - XXX
+ * @addr: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int mutt_is_mail_list (ADDRESS *addr)
 {
   if (!mutt_match_rx_list (addr->mailbox, UnMailLists))
@@ -47,6 +55,14 @@ int mutt_is_mail_list (ADDRESS *addr)
   return 0;
 }
 
+/**
+ * mutt_is_subscribed_list - XXX
+ * @addr: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int mutt_is_subscribed_list (ADDRESS *addr)
 {
   if (!mutt_match_rx_list (addr->mailbox, UnMailLists)
@@ -55,6 +71,17 @@ int mutt_is_subscribed_list (ADDRESS *addr)
   return 0;
 }
 
+/**
+ * check_for_mailing_list - XXX
+ * @adr:    YYY
+ * @pfx:    YYY
+ * @buf:    YYY
+ * @buflen: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /* Search for a mailing list in the list of addresses pointed to by adr.
  * If one is found, print pfx and the name of the list into buf, then
  * return 1.  Otherwise, simply return 0.
@@ -74,6 +101,16 @@ check_for_mailing_list (ADDRESS *adr, char *pfx, char *buf, int buflen)
   return 0;
 }
 
+/**
+ * check_for_mailing_list_addr - XXX
+ * @adr:    YYY
+ * @buf:    YYY
+ * @buflen: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /* Search for a mailing list in the list of addresses pointed to by adr.
  * If one is found, print the address of the list into buf, then return 1.
  * Otherwise, simply return 0.
@@ -94,6 +131,16 @@ check_for_mailing_list_addr (ADDRESS *adr, char *buf, int buflen)
 }
 
 
+/**
+ * first_mailing_list - XXX
+ * @buf:    YYY
+ * @buflen: YYY
+ * @a:      YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int first_mailing_list (char *buf, size_t buflen, ADDRESS *a)
 {
   for (; a; a = a->next)
@@ -108,9 +155,18 @@ static int first_mailing_list (char *buf, size_t buflen, ADDRESS *a)
 }
 
 /**
+ * add_index_color - XXX
+ * @buf:    YYY
+ * @buflen: YYY
+ * @flags:  YYY
+ * @color:  YYY
+ *
+ * DESCRIPTION
  * Takes the color to embed, the buffer to manipulate and the buffer length as
  * arguments.
  * Returns the number of chars written.
+ *
+ * Returns: size_t
  */
 static size_t
 add_index_color (char *buf, size_t buflen, format_flag flags, char color)
@@ -137,6 +193,15 @@ add_index_color (char *buf, size_t buflen, format_flag flags, char color)
   return 2;
 }
 
+/**
+ * make_from - XXX
+ * @hdr:      YYY
+ * @buf:      YYY
+ * @len:      YYY
+ * @do_lists: YYY
+ *
+ * DESCRIPTION
+ */
 static void make_from (ENVELOPE *hdr, char *buf, size_t len, int do_lists)
 {
   int me;
@@ -163,6 +228,15 @@ static void make_from (ENVELOPE *hdr, char *buf, size_t len, int do_lists)
     *buf = 0;
 }
 
+/**
+ * make_from_addr - XXX
+ * @hdr:      YYY
+ * @buf:      YYY
+ * @len:      YYY
+ * @do_lists: YYY
+ *
+ * DESCRIPTION
+ */
 static void make_from_addr (ENVELOPE *hdr, char *buf, size_t len, int do_lists)
 {
   int me;
@@ -187,6 +261,14 @@ static void make_from_addr (ENVELOPE *hdr, char *buf, size_t len, int do_lists)
     *buf = 0;
 }
 
+/**
+ * user_in_addr - XXX
+ * @a: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int user_in_addr (ADDRESS *a)
 {
   for (; a; a = a->next)
@@ -195,6 +277,14 @@ static int user_in_addr (ADDRESS *a)
   return 0;
 }
 
+/**
+ * mutt_user_is_recipient - XXX
+ * @h: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /* Return values:
  * 0: user is not in list
  * 1: user is unique recipient
@@ -274,6 +364,24 @@ int mutt_user_is_recipient (HEADER *h)
  * %Y = `x-label:' field (if present, tree unfolded, and != parent's x-label)
  * %Z = status flags	*/
 
+/**
+ * hdr_format_str - XXX
+ * @dest:       YYY
+ * @destlen:    YYY
+ * @col:        YYY
+ * @cols:       YYY
+ * @op:         YYY
+ * @src:        YYY
+ * @prefix:     YYY
+ * @ifstring:   YYY
+ * @elsestring: YYY
+ * @data:       YYY
+ * @flags:      YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: const char*
+ */
 static const char *
 hdr_format_str (char *dest,
 		size_t destlen,
@@ -1032,6 +1140,17 @@ hdr_format_str (char *dest,
 #undef THREAD_OLD
 }
 
+/**
+ * _mutt_make_string - XXX
+ * @dest:    YYY
+ * @destlen: YYY
+ * @s:       YYY
+ * @ctx:     YYY
+ * @hdr:     YYY
+ * @flags:   YYY
+ *
+ * DESCRIPTION
+ */
 void
 _mutt_make_string (char *dest, size_t destlen, const char *s, CONTEXT *ctx, HEADER *hdr, format_flag flags)
 {
@@ -1044,6 +1163,17 @@ _mutt_make_string (char *dest, size_t destlen, const char *s, CONTEXT *ctx, HEAD
   mutt_FormatString (dest, destlen, 0, MuttIndexWindow->cols, s, hdr_format_str, (unsigned long) &hfi, flags);
 }
 
+/**
+ * mutt_make_string_info - XXX
+ * @dst:    YYY
+ * @dstlen: YYY
+ * @cols:   YYY
+ * @s:      YYY
+ * @hfi:    YYY
+ * @flags:  YYY
+ *
+ * DESCRIPTION
+ */
 void
 mutt_make_string_info (char *dst, size_t dstlen, int cols, const char *s, struct hdr_format_info *hfi, format_flag flags)
 {

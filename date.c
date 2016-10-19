@@ -23,6 +23,15 @@
 #include "mutt.h"
 #include <string.h>
 
+/**
+ * compute_tz - XXX
+ * @g:   YYY
+ * @utc: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: time_t
+ */
 /* returns the seconds east of UTC given `g' and its corresponding gmtime()
    representation */
 static time_t compute_tz (time_t g, struct tm *utc)
@@ -46,6 +55,14 @@ static time_t compute_tz (time_t g, struct tm *utc)
   return t;
 }
 
+/**
+ * mutt_local_tz - XXX
+ * @t: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: time_t
+ */
 /* Returns the local timezone in seconds east of UTC for the time t,
  * or for the current time if t is zero.
  */
@@ -67,8 +84,17 @@ time_t mutt_local_tz (time_t t)
 #define TIME_T_MAX ((((time_t) 1 << (sizeof(time_t) * 8 - 2)) - 1) * 2 + 1)
 #define TM_YEAR_MAX (1970 + (((((TIME_T_MAX - 59) / 60) - 59) / 60) - 23) / 24 / 366)
 
-/* converts struct tm to time_t, but does not take the local timezone into
-   account unless ``local'' is nonzero */
+/**
+ * mutt_mktime - XXX
+ * @t:     YYY
+ * @local: YYY
+ *
+ * DESCRIPTION
+ * converts struct tm to time_t, but does not take the local timezone into
+ * account unless ``local'' is nonzero
+ *
+ * Returns: time_t
+ */
 time_t mutt_mktime (struct tm *t, int local)
 {
   time_t g;
@@ -114,6 +140,14 @@ time_t mutt_mktime (struct tm *t, int local)
   return (g);
 }
 
+/**
+ * isLeapYearFeb - XXX
+ * @tm: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /* Return 1 if month is February of leap year, else 0 */
 static int isLeapYearFeb (struct tm *tm)
 {
@@ -125,6 +159,12 @@ static int isLeapYearFeb (struct tm *tm)
   return (0);
 }
 
+/**
+ * mutt_normalize_time - XXX
+ * @tm: YYY
+ *
+ * DESCRIPTION
+ */
 void mutt_normalize_time (struct tm *tm)
 {
   static const char DaysPerMonth[12] = {

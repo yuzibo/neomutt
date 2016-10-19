@@ -305,6 +305,14 @@ static int edit_envelope (ENVELOPE *en, int flags)
   return 0;
 }
 
+/**
+ * nntp_get_header - QWQ
+ * @s: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: char*
+ */
 #ifdef USE_NNTP
 char *nntp_get_header (const char *s)
 {
@@ -1169,6 +1177,14 @@ static void fix_end_of_file (const char *data)
   safe_fclose (&fp);
 }
 
+/**
+ * mutt_compose_to_sender - QWQ
+ * @hdr: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int mutt_compose_to_sender (HEADER *hdr)
 {
   HEADER *msg = mutt_new_header();
@@ -1242,6 +1258,14 @@ static int has_recips (ADDRESS *a)
   return c;
 }
 
+/**
+ * mutt_search_attach_keyword - QWQ
+ * @filename: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int
 mutt_search_attach_keyword (char *filename)
 {

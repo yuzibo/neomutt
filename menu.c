@@ -30,6 +30,15 @@
 
 char* SearchBuffers[MENU_MAX];
 
+/**
+ * get_color - QWQ
+ * @index: YYY
+ * @s:     YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int
 get_color (int index, unsigned char *s)
 {

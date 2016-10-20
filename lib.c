@@ -1523,7 +1523,7 @@ int mutt_atol (const char *str, long *dst)
 }
 
 /**
- * mutt_is_inbox - XXX
+ * mutt_is_inbox - QWQ
  * @path: YYY
  *
  * DESCRIPTION
@@ -1537,7 +1537,7 @@ int mutt_is_inbox (const char *path)
 }
 
 /**
- * mutt_same_path - XXX
+ * mutt_same_path - QWQ
  * @a: YYY
  * @b: YYY
  *
@@ -1564,7 +1564,7 @@ int mutt_same_path (const char *a, const char *b)
 }
 
 /**
- * strfcpy - XXX
+ * strfcpy - QWQ
  * @dest: YYY
  * @src:  YYY
  * @dlen: YYY

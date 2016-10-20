@@ -375,7 +375,7 @@ static int edit_envelope (ENVELOPE *en, int flags)
 }
 
 /**
- * nntp_get_header - XXX
+ * nntp_get_header - QWQ
  * @s: YYY
  *
  * DESCRIPTION
@@ -1448,7 +1448,7 @@ static void fix_end_of_file (const char *data)
 }
 
 /**
- * mutt_compose_to_sender - XXX
+ * mutt_compose_to_sender - QWQ
  * @hdr: YYY
  *
  * DESCRIPTION
@@ -1554,7 +1554,7 @@ static int has_recips (ADDRESS *a)
 }
 
 /**
- * mutt_search_attach_keyword - XXX
+ * mutt_search_attach_keyword - QWQ
  * @filename: YYY
  *
  * DESCRIPTION

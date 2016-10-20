@@ -528,7 +528,7 @@ void mutt_progress_init (progress_t* progress, const char *msg,
 }
 
 /**
- * message_bar - XXX
+ * message_bar - QWQ
  * @percent: YYY
  * @fmt:     YYY
  * @...:     YYY

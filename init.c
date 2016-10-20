@@ -715,7 +715,7 @@ static void remove_from_list (LIST **l, const char *str)
 }
 
 /**
- * finish_source - XXX
+ * finish_source - QWQ
  * @tmp:  YYY
  * @s:    YYY
  * @data: YYY
@@ -750,7 +750,7 @@ static int finish_source (BUFFER *tmp, BUFFER *s, unsigned long data, BUFFER *er
 }
 
 /**
- * parse_ifdef - XXX
+ * parse_ifdef - QWQ
  * @tmp:  YYY
  * @s:    YYY
  * @data: YYY
@@ -3309,7 +3309,7 @@ int mutt_var_value_complete (char *buffer, size_t len, int pos)
 #if USE_NOTMUCH
 
 /**
- * complete_all_nm_tags - XXX
+ * complete_all_nm_tags - QWQ
  * @pt: YYY
  *
  * DESCRIPTION
@@ -3370,7 +3370,7 @@ done:
 }
 
 /**
- * rstrnstr - XXX
+ * rstrnstr - QWQ
  * @haystack:        YYY
  * @haystack_length: YYY
  * @needle:          YYY
@@ -3405,7 +3405,7 @@ static const char* rstrnstr(const char* haystack,
 }
 
 /**
- * mutt_nm_query_complete - XXX
+ * mutt_nm_query_complete - QWQ
  * @buffer:  YYY
  * @len:     YYY
  * @pos:     YYY
@@ -3460,7 +3460,7 @@ int mutt_nm_query_complete (char *buffer, size_t len, int pos, int numtabs)
 }
 
 /**
- * mutt_nm_tag_complete - XXX
+ * mutt_nm_tag_complete - QWQ
  * @buffer:  YYY
  * @len:     YYY
  * @pos:     YYY
@@ -4239,7 +4239,7 @@ static int parse_group_context (group_context_t **ctx, BUFFER *buf, BUFFER *s, u
 }
 
 /**
- * parse_tag_transforms - XXX
+ * parse_tag_transforms - QWQ
  * @b:    YYY
  * @s:    YYY
  * @data: YYY
@@ -4282,7 +4282,7 @@ int parse_tag_transforms (BUFFER *b, BUFFER *s, unsigned long data, BUFFER *err)
 }
 
 /**
- * parse_tag_formats - XXX
+ * parse_tag_formats - QWQ
  * @b:    YYY
  * @s:    YYY
  * @data: YYY
@@ -4394,7 +4394,7 @@ static const char* myvar_get (const char* var)
 }
 
 /**
- * mutt_label_complete - XXX
+ * mutt_label_complete - QWQ
  * @buffer:  YYY
  * @len:     YYY
  * @pos:     YYY

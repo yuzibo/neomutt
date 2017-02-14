@@ -2053,12 +2053,6 @@ struct option_t MuttVars[] = {
    ** This variable specifies the default Notmuch database in format
    ** notmuch://<absolute path>.
    */
-  { "nm_hidden_tags", DT_STR, R_NONE, UL &NotmuchHiddenTags, UL "unread,draft,flagged,passed,replied,attachment,signed,encrypted" },
-  /*
-   ** .pp
-   ** This variable specifies private notmuch tags which should not be printed
-   ** on screen.
-   */
   { "nm_exclude_tags", DT_STR,  R_NONE, UL &NotmuchExcludeTags, 0 },
   /*
    ** .pp
@@ -2117,6 +2111,12 @@ struct option_t MuttVars[] = {
    ** This variable contains the currently setup notmuch search for window based vfolder.
    */
 #endif
+  { "hidden_tags", DT_STR, R_NONE, UL &HiddenTags, UL "unread,draft,flagged,passed,replied,attachment,signed,encrypted" },
+  /*
+  ** .pp
+  ** This variable specifies private notmuch/imap tags which should not be printed
+  ** on screen.
+  */
   { "pager",            DT_PATH, R_NONE, UL &Pager, UL "builtin" },
   /*
   ** .pp
@@ -4472,10 +4472,8 @@ static int parse_unalternates(struct Buffer *, struct Buffer *, unsigned long, s
 static int parse_group_context(struct GroupContext **ctx, struct Buffer *buf, struct Buffer *s,
                                unsigned long data, struct Buffer *err);
 
-#ifdef USE_NOTMUCH
 static int parse_tag_transforms(struct Buffer *, struct Buffer *, unsigned long, struct Buffer *);
 static int parse_tag_formats(struct Buffer *, struct Buffer *, unsigned long, struct Buffer *);
-#endif
 
 const struct command_t Commands[] = {
   { "alternates",       parse_alternates,       0 },
@@ -4522,9 +4520,9 @@ const struct command_t Commands[] = {
 #ifdef USE_NOTMUCH
   { "virtual-mailboxes",mutt_parse_virtual_mailboxes, 0 },
   { "unvirtual-mailboxes",mutt_parse_unvirtual_mailboxes, 0 },
+#endif
   { "tag-transforms",   parse_tag_transforms,   0 },
   { "tag-formats",      parse_tag_formats,      0 },
-#endif
   { "mailto_allow",     parse_list,             UL &MailtoAllow },
   { "unmailto_allow",   parse_unlist,           UL &MailtoAllow },
   { "message-hook",     mutt_parse_hook,        MUTT_MESSAGEHOOK },

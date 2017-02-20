@@ -265,7 +265,6 @@ int imap_exec(struct ImapData *idata, const char *cmd, int flags);
 int imap_cmd_idle(struct ImapData *idata);
 
 /* message.c */
-void imap_add_keywords(char *s, struct Header *keywords, struct List *mailbox_flags, size_t slen);
 void imap_free_header_data(struct ImapHeaderData **data);
 int imap_read_headers(struct ImapData *idata, int msgbegin, int msgend);
 char *imap_set_flags(struct ImapData *idata, struct Header *h, char *s);

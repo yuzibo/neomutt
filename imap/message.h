@@ -39,7 +39,8 @@ struct ImapHeaderData
   bool parsed : 1;
 
   unsigned int uid; /* 32-bit Message UID */
-  struct List *keywords;
+  char *keywords_system;
+  char *keywords_remote;
 };
 
 struct ImapHeader

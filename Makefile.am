@@ -31,7 +31,7 @@ SUBDIRS += po
 endif
 
 if BUILD_UNITTEST
-SUBDIR += unit-test
+SUBDIRS += unit-test
 endif
 
 bin_SCRIPTS = $(SMIMEAUX_TARGET)

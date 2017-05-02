@@ -16,7 +16,7 @@ am__v_COPY_ = $(am__v_COPY_$(AM_DEFAULT_VERBOSITY))
 am__v_COPY_0 = @echo "  COPY    " $@;
 am__v_COPY_1 = 
 
-SUBDIRS = m4 contrib imap ncrypt
+SUBDIRS = m4 contrib ncrypt
 
 if BUILD_HCACHE
 SUBDIRS += hcache
@@ -54,23 +54,22 @@ mutt_SOURCES = account.c addrbook.c address.h alias.c alias.h ascii.c attach.c \
 	query.c recvattach.c recvcmd.c rfc1524.c rfc2047.c rfc2231.c rfc3676.c \
 	rfc822.c safe_asprintf.c score.c send.c sendlib.c sidebar.c signal.c \
 	smtp.c sort.c state.h status.c system.c thread.c thread.h url.c \
-	version.c where.h
+	version.c where.h \
+	imap/auth.c imap/auth_plain.c imap/auth_login.c imap/browse.c \
+	imap/command.c imap/imap.c imap/message.c imap/utf7.c imap/util.c
 
 nodist_mutt_SOURCES = $(BUILT_SOURCES)
 
-LIBIMAP = -Limap -limap
-LIBIMAPDEPS = $(top_srcdir)/imap/imap.h imap/libimap.a
-
 mutt_LDADD = $(MUTT_LIB_OBJECTS) $(LIBOBJS) $(HCACHE_LIBS) $(NCRYPT_LIBS) \
-	$(LIBIMAP) $(MUTTLIBS) $(LIBICONV) $(GPGME_LIBS) $(INTLLIBS)
+	$(MUTTLIBS) $(LIBICONV) $(GPGME_LIBS) $(INTLLIBS)
 
-mutt_DEPENDENCIES = $(MUTT_LIB_OBJECTS) $(LIBOBJS) $(LIBIMAPDEPS) \
+mutt_DEPENDENCIES = $(MUTT_LIB_OBJECTS) $(LIBOBJS) \
 	$(HCACHE_DEPS) $(NCRYPT_DEPS) $(INTLDEPS)
 
 DEFS=-DPKGDATADIR=\"$(pkgdatadir)\" -DSYSCONFDIR=\"$(sysconfdir)\" \
 	-DBINDIR=\"$(bindir)\" -DMUTTLOCALEDIR=\"$(datadir)/locale\"
 
-AM_CPPFLAGS=-I. -I$(top_srcdir) $(GPGME_CFLAGS)
+AM_CPPFLAGS=-I$(top_srcdir)/imap -I$(top_srcdir) $(GPGME_CFLAGS)
 
 EXTRA_mutt_SOURCES = browser.h dotlock.c mbyte.h mutt_idna.c mutt_idna.h \
 	mutt_lua.c mutt_sasl.c mutt_notmuch.c mutt_ssl.c mutt_ssl_gnutls.c \
@@ -88,7 +87,9 @@ EXTRA_DIST = account.h ascii.h attach.h bcache.h browser.h buffer.h buffy.h \
 	pgpewrap.c pop.h protos.h README.md README.SSL remailer.c remailer.h \
 	rfc1524.h rfc2047.h rfc2231.h rfc3676.h rfc822.h sha1.h sidebar.h \
 	smime_keys.pl sort.h txt2c.c txt2c.sh UPDATING version.h \
-	keymap_alldefs.h
+	keymap_alldefs.h imap/README \
+	imap/imap.h imap/imap_private.h imap/auth.h imap/message.h \
+	imap/auth_anon.c imap/auth_cram.c imap/auth_gss.c imap/auth_sasl.c
 
 EXTRA_SCRIPTS = smime_keys
 

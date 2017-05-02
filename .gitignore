@@ -61,6 +61,7 @@ pgpring
 smime_keys
 stamp-h1
 txt2c
+imap/.dirstamp
 
 neomutt-*.tar.gz
 neomutt-*/

@@ -135,11 +135,6 @@ static struct compile_options comp_opts[] = {
 #else
   { "debug", 0 },
 #endif
-#ifdef USE_DOTLOCK
-  { "dotlock", 1 },
-#else
-  { "dotlock", 0 },
-#endif
 #ifdef ENABLE_NLS
   { "enable_nls", 1 },
 #else

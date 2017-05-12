@@ -4690,11 +4690,6 @@ msgstr "Tunnel error talking to %s: %s"
 msgid "Lock count exceeded, remove lock for %s?"
 msgstr "Lock count exceeded, remove lock for %s?"
 
-#: mx.c:160
-#, c-format
-msgid "Can't dotlock %s.\n"
-msgstr "Can't dotlock %s.\n"
-
 #: mx.c:215
 msgid "Timeout exceeded while attempting fcntl lock!"
 msgstr "Timeout exceeded while attempting fcntl lock!"

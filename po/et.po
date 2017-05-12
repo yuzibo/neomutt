@@ -4889,11 +4889,6 @@ msgstr "Viga serveriga %s suhtlemisel (%s)"
 msgid "Lock count exceeded, remove lock for %s?"
 msgstr "Lukustamise arv on ületatud, eemaldan %s lukufaili? "
 
-#: mx.c:160
-#, c-format
-msgid "Can't dotlock %s.\n"
-msgstr "%s punktfailiga lukustamine ei õnnestu.\n"
-
 #: mx.c:215
 msgid "Timeout exceeded while attempting fcntl lock!"
 msgstr "fcntl luku seadmine aegus!"

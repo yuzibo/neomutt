@@ -587,7 +587,8 @@ bind editor &lt;delete&gt; backspace
 Mutt maintains a history for the built-in editor.  The number of items
 is controlled by the <link linkend="history">$history</link> variable
 and can be made persistent using an external file specified using <link
-linkend="history-file">$history_file</link>.  You may cycle through them
+linkend="history-file">$history_file</link> and <link
+linkend="save-history">$save_history</link>.  You may cycle through them
 at an editor prompt by using the <literal>&lt;history-up&gt;</literal>
 and/or <literal>&lt;history-down&gt;</literal> commands.  Mutt will
 remember the currently entered text as you cycle through history, and
@@ -610,9 +611,11 @@ following categories:
 
 <para>
 Mutt automatically filters out consecutively repeated items from the
-history. It also mimics the behavior of some shells by ignoring items
-starting with a space. The latter feature can be useful in macros to not
-clobber the history's valuable entries with unwanted entries.
+history.  If <link linkend="history-remove-dups">$history_remove_dups</link>
+is set, all repeated items are removed from the history.  It also mimics the
+behavior of some shells by ignoring items starting with a space. The latter
+feature can be useful in macros to not clobber the history's valuable entries
+with unwanted entries.
 </para>
 
 </sect2>

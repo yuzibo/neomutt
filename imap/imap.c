@@ -250,16 +250,21 @@ void imap_expunge_mailbox (IMAP_DATA* idata)
 {
   HEADER* h;
   int i, cacheno;
+  short old_sort;
 
 #ifdef USE_HCACHE
   idata->hcache = imap_hcache_open (idata, NULL);
 #endif
 
+  old_sort = Sort;
+  Sort = SORT_ORDER;
+  mutt_sort_headers (idata->ctx, 0);
+
   for (i = 0; i < idata->ctx->msgcount; i++)
   {
     h = idata->ctx->hdrs[i];
 
-    if (h->index == -1)
+    if (h->index == INT_MAX)
     {
       dprint (2, (debugfile, "Expunging message UID %d.\n", HEADER_DATA (h)->uid));
 
@@ -284,6 +289,8 @@ void imap_expunge_mailbox (IMAP_DATA* idata)
 
       imap_free_header_data ((IMAP_HEADER_DATA**)&h->data);
     }
+    else
+      h->index = i;
   }
 
 #if USE_HCACHE
@@ -293,6 +300,7 @@ void imap_expunge_mailbox (IMAP_DATA* idata)
   /* We may be called on to expunge at any time. We can't rely on the caller
    * to always know to rethread */
   mx_update_tables (idata->ctx, 0);
+  Sort = old_sort;
   mutt_sort_headers (idata->ctx, 1);
 }
 
@@ -600,6 +608,7 @@ static int imap_open_mailbox (CONTEXT* ctx)
   idata->status = 0;
   memset (idata->ctx->rights, 0, sizeof (idata->ctx->rights));
   idata->newMailCount = 0;
+  idata->max_msn = 0;
 
   mutt_message (_("Selecting %s..."), idata->mailbox);
   imap_munge_mbox_name (idata, buf, sizeof(buf), idata->mailbox);
@@ -754,7 +763,7 @@ static int imap_open_mailbox (CONTEXT* ctx)
   ctx->v2r = safe_calloc (count, sizeof (int));
   ctx->msgcount = 0;
 
-  if (count && (imap_read_headers (idata, 0, count-1) < 0))
+  if (count && (imap_read_headers (idata, 1, count) < 0))
   {
     mutt_error _("Error opening mailbox");
     mutt_sleep (1);
@@ -1398,6 +1407,8 @@ int imap_close_mailbox (CONTEXT* ctx)
     if (ctx->hdrs[i] && ctx->hdrs[i]->data)
       imap_free_header_data ((IMAP_HEADER_DATA**)&(ctx->hdrs[i]->data));
   hash_destroy (&idata->uid_hash, NULL);
+  FREE (&idata->msn_index);
+  idata->msn_index_size = 0;
 
   for (i = 0; i < IMAP_CACHE_LEN; i++)
   {
